@@ -1,0 +1,14 @@
+{
+    "name": "crx-tabs-finder",
+    "version": "0.0.0.1",
+    "manifest_version": 2,
+    "description": "Tabs FinderExtension",
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs"
+    ]
+}
