@@ -5,6 +5,7 @@
     'use strict';
 
     var currentSelectedDisplayedTab = -1;
+    const KEY_ENTER = 13;
     const KEY_UP = 38;
     const KEY_DOWN = 40;
 
@@ -14,11 +15,16 @@
             let tab = tabs[i];
             let p = window.document.createElement('p');
             let a = window.document.createElement('a');
+
+            p.classList.add('visible');
             a.textContent = tab.title;
             a.title = tab.url;
             a.href = tab.url;
             a.onclick = function () {
                 console.log('clicked on this %o, %o', this, arguments);
+            };
+            p.onmouseover = function () {
+                selectTab(this);
             };
 
             window.document.body.appendChild(p);
@@ -27,12 +33,14 @@
 
         var searchInput = window.document.getElementById('searchInput');
         searchInput.addEventListener('keydown', function (event) {
-            let displayedTabs = window.document.getElementsByTagName('p');
-            if (currentSelectedDisplayedTab !== -1) {
-                displayedTabs[currentSelectedDisplayedTab].classList.remove('selected');
-            }
 
             switch (event.which) {
+                case KEY_ENTER : {
+                    if (currentSelectedDisplayedTab !== -1) {
+                        window.document.getElementsByTagName('a')[currentSelectedDisplayedTab].click();
+                    }
+                    break;
+                }
                 case KEY_DOWN : {
                     currentSelectedDisplayedTab += 1;
                     break;
@@ -43,31 +51,48 @@
                 }
             }
 
-            if (currentSelectedDisplayedTab == tabs.length) {
+            let displayedTabs = window.document.getElementsByClassName('visible');
+            if (currentSelectedDisplayedTab >= displayedTabs.length) {
                 currentSelectedDisplayedTab = 0;
             }
 
             if (currentSelectedDisplayedTab < 0) {
-                currentSelectedDisplayedTab = tabs.length - 1;
+                currentSelectedDisplayedTab = displayedTabs.length - 1;
             }
-            displayedTabs[currentSelectedDisplayedTab].classList.add('selected');
+            selectTab(displayedTabs[currentSelectedDisplayedTab]);
         });
 
-        searchInput.addEventListener('keyup', function (event) {
+        searchInput.addEventListener('input', function (event) {
             let displayedTabs = window.document.getElementsByTagName('p');
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
                 if (this.value == '') {
-                    displayedTab.style.display = 'block';
+                    displayedTab.classList.add('visible');
                 } else {
                     if (displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase()) != -1) {
-                        displayedTab.style.display = 'block';
+                        displayedTab.classList.add('visible');
+                        displayedTab.classList.remove('hidden');
                     } else {
-                        displayedTab.style.display = 'none';
+                        displayedTab.classList.remove('visible');
+                        displayedTab.classList.add('hidden');
                     }
                 }
             }
         });
     });
+
+    function unselectAllTabs() {
+        let displayedTabs = window.document.getElementsByTagName('p');
+        for (let i = 0; i < displayedTabs.length; i += 1) {
+            let displayedTab = displayedTabs[i];
+            displayedTab.classList.remove('selected');
+        }
+    }
+
+    function selectTab(tab) {
+        unselectAllTabs();
+        tab.classList.add('selected');
+    }
+
 
 })(window);
