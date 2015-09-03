@@ -24,7 +24,7 @@
             a.title = tab.url;
             a.href = tab.url;
 
-            img.src = tab.favIconUrl;
+            img.src = tab.url.indexOf('chrome://') == 0 || tab.url.indexOf('file://') == 0 ? 'IDR_EXTENSIONS_FAVICON.png' : tab.favIconUrl;
 
             em.textContent = tab.url;
 
