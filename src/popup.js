@@ -23,8 +23,20 @@
             a.textContent = tab.title;
             a.title = tab.url;
             a.href = tab.url;
+            a.onclick = function () {
+                return false;
+            };
 
-            img.src = tab.url.indexOf('chrome://') == 0 || tab.url.indexOf('file://') == 0 ? 'IDR_EXTENSIONS_FAVICON.png' : tab.favIconUrl;
+            if (tab.url.indexOf('chrome://') == 0) {
+                img.src = 'resources/crx-favicon.png';
+            } else if (tab.url.indexOf('file://') == 0) {
+                img.src = 'resources/file.png';
+            } else {
+                img.src = tab.favIconUrl;
+            }
+            img.onerror = function () {
+                this.src = 'resources/chrome-32.png';
+            };
 
             em.textContent = tab.url;
 
