@@ -1,7 +1,7 @@
 /**
  * Created by eantaya on 2015-08-21.
  */
-(function (window) {
+(function (window, chrome) {
     'use strict';
 
     var currentSelectedDisplayedTab = -1;
@@ -18,10 +18,21 @@
 
             p.classList.add('visible');
             a.textContent = tab.title;
-            a.title = tab.url;
+            a.title = p.title = tab.url;
             a.href = tab.url;
-            a.onclick = function () {
-                console.log('clicked on this %o, %o', this, arguments);
+            p.setAttribute('data-tab-window-id', tab.windowId);
+            p.setAttribute('data-tab-id', tab.id);
+            p.onclick = function () {
+                let tabWindowId = parseInt(this.attributes['data-tab-window-id'].value);
+                let tabId = parseInt(this.attributes['data-tab-id'].value);
+
+                chrome.tabs.update(tabId, {
+                    'active': true
+                }, function () {
+                    chrome.windows.update(tabWindowId, {
+                        'focused': true
+                    });
+                });
             };
             p.onmouseover = function () {
                 selectTab(this);
@@ -95,4 +106,4 @@
     }
 
 
-})(window);
+})(window, chrome);
