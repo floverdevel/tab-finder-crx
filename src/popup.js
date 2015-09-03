@@ -13,13 +13,23 @@
 
         for (let i = 0; i < tabs.length; i += 1) {
             let tab = tabs[i];
-            let p = window.document.createElement('p');
             let a = window.document.createElement('a');
+            let p = window.document.createElement('p');
+            let img = window.document.createElement('img');
+            let em = window.document.createElement('em');
+            let br = window.document.createElement('br');
+
+
+            a.textContent = tab.title;
+            a.title = tab.url;
+            a.href = tab.url;
+
+            img.src = tab.favIconUrl;
+
+            em.textContent = tab.url;
 
             p.classList.add('visible');
-            a.textContent = tab.title;
-            a.title = p.title = tab.url;
-            a.href = tab.url;
+            p.title = tab.url;
             p.setAttribute('data-tab-window-id', tab.windowId);
             p.setAttribute('data-tab-id', tab.id);
             p.onclick = function () {
@@ -38,8 +48,11 @@
                 selectTab(this);
             };
 
-            window.document.body.appendChild(p);
+            p.appendChild(img);
             p.appendChild(a);
+            p.appendChild(br);
+            p.appendChild(em);
+            window.document.body.appendChild(p);
         }
 
         var searchInput = window.document.getElementById('searchInput');
