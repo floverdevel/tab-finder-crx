@@ -75,7 +75,8 @@
             switch (event.which) {
                 case KEY_ENTER : {
                     if (currentSelectedDisplayedTab !== -1) {
-                        window.document.getElementsByTagName('a')[currentSelectedDisplayedTab].click();
+                        let displayedTabs = window.document.getElementsByClassName('visible');
+                        displayedTabs[currentSelectedDisplayedTab].click();
                     }
                     break;
                 }
@@ -153,6 +154,7 @@
     function selectTab(tab) {
         unselectAllTabs();
         tab.classList.add('selected');
+        //currentSelectedDisplayedTab = tab;
     }
 
 
