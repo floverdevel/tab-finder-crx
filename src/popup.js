@@ -4,7 +4,7 @@
 (function (window, chrome) {
     'use strict';
 
-    var currentSelectedDisplayedTab = -1;
+    let currentSelectedDisplayedTab = -1;
     const KEY_ENTER = 13;
     const KEY_UP = 38;
     const KEY_DOWN = 40;
@@ -59,6 +59,9 @@
             p.onmouseover = function () {
                 selectTab(this);
             };
+            p.onmouseout = function () {
+                // unselectAllTabs();
+            };
 
             p.appendChild(img);
             p.appendChild(a);
@@ -67,8 +70,7 @@
             window.document.body.appendChild(p);
         }
 
-        var searchInput = window.document.getElementById('searchInput');
-        searchInput.addEventListener('keydown', function (event) {
+        window.addEventListener('keydown', function (event) {
 
             switch (event.which) {
                 case KEY_ENTER : {
@@ -98,24 +100,47 @@
             selectTab(displayedTabs[currentSelectedDisplayedTab]);
         });
 
+        var searchInput = window.document.getElementById('searchInput');
         searchInput.addEventListener('input', function (event) {
             let displayedTabs = window.document.getElementsByTagName('p');
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
                 if (this.value == '') {
                     displayedTab.classList.add('visible');
+                    displayedTab.getElementsByTagName('a')[0].innerHTML = displayedTab.getElementsByTagName('a')[0].textContent;
+                    displayedTab.getElementsByTagName('em')[0].innerHTML = displayedTab.getElementsByTagName('em')[0].textContent;
                 } else {
-                    if (displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase()) != -1) {
+                    let textPosition = displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase());
+                    if (textPosition != -1) {
                         displayedTab.classList.add('visible');
                         displayedTab.classList.remove('hidden');
                     } else {
                         displayedTab.classList.remove('visible');
                         displayedTab.classList.add('hidden');
                     }
+                    highlightTextInElement(this.value, displayedTab.getElementsByTagName('a')[0]);
+                    highlightTextInElement(this.value, displayedTab.getElementsByTagName('em')[0]);
                 }
             }
         });
     });
+
+    function highlightTextInElement(text, element) {
+        let textPosition = element.textContent.toLowerCase().indexOf(text.toLowerCase());
+        if (textPosition != -1) {
+            let title = element.textContent;
+            let highlightedContent =
+                element.textContent.substr(0, textPosition) +
+                '<span class="highlight">' +
+                element.textContent.substr(textPosition, text.length) +
+                '</span>' +
+                element.textContent.substr(textPosition + text.length);
+            element.innerHTML = highlightedContent;
+        } else {
+            element.innerHTML = element.textContent
+        }
+
+    }
 
     function unselectAllTabs() {
         let displayedTabs = window.document.getElementsByTagName('p');
