@@ -1,8 +1,8 @@
 {
-    "name": "crx-tabs-finder",
+    "name": "crx-tab-finder",
     "version": "0.0.0.1",
     "manifest_version": 2,
-    "description": "Tabs Finder Extension",
+    "description": "Google Chrome tab finder extension",
     "icons": {
         "16": "resources/icon_16.png",
         "32": "resources/icon_32.png",

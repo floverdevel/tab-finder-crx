@@ -1,3 +1,3 @@
-crx-tabs-finder
+crx-tab-finder
 ===============
 ...
