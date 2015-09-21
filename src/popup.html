@@ -2,52 +2,11 @@
 <html>
 <head>
     <title></title>
-
-    <style>
-        body {
-            width: 600px;
-        }
-        img {
-            padding-right: 8px;
-            width: 16px;
-            height: 16px;
-        }
-        a {
-            vertical-align: top;
-        }
-        p {
-            background-color: transparent;
-            border-width: 4px;
-            margin: 0;
-            padding: 8px;
-        }
-        p.selected {
-            background-color: Menu;
-            color: MenuText;
-            border-top-color: aqua;
-        }
-        p.hidden {
-            display: none;
-        }
-        p.visible {
-            display: block;
-        }
-        span {
-            background-color: Highlight;
-            color: HighlightText;
-        }
-        em {
-            color: grey;
-        }
-        input {
-            width: 100%;
-            margin-bottom: 4px;
-            margin-top: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-    <input id="searchInput" type="search" />
+    <input autofocus="autofocus" id="searchInput" type="search" />
+    <ul></ul>
 
     <script src="popup.js"></script>
 </body>

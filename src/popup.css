@@ -1,0 +1,56 @@
+body {
+    padding: 0;
+    margin: 0;
+    width: 600px;
+}
+img {
+    padding-right: 8px;
+}
+img.small {
+    width: 16px;
+    height: 16px;
+}
+img.big {
+    width: 32px;
+    height: 32px;
+}
+a {
+    position: absolute;
+    width: 100%;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: silver;
+    cursor: pointer;
+    display: none;
+    margin: 0;
+    list-style-type: none;
+    padding: 8px;
+}
+li.selected {
+    background-color: Menu;
+    color: MenuText;
+}
+li.visible {
+    display: block;
+}
+span {
+    background-color: Highlight;
+    color: HighlightText;
+}
+em {
+    color: gray;
+    width: 100%;
+}
+input {
+    width: 100%;
+    margin-bottom: 0;
+    margin-top: 0;
+}
