@@ -1,8 +1,8 @@
 {
     "name": "crx-tab-finder",
-    "version": "0.0.0.1",
+    "version": "0.1",
     "manifest_version": 2,
-    "description": "Google Chrome tab finder extension",
+    "description": "Find and navigate to an opened tab",
     "icons": {
         "16": "resources/icon_16.png",
         "32": "resources/icon_32.png",
@@ -11,7 +11,7 @@
     },
     "browser_action": {
         "default_icon": "resources/icon_128.png",
-        "default_title": "Find an opened tab",
+        "default_title": "Find and navigate to an opened tab",
         "default_popup": "popup.html"
     },
     "permissions": [

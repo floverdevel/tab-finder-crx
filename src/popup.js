@@ -4,7 +4,15 @@
 (function (window, chrome) {
     'use strict';
 
-    console.log('User agent is %o', window.navigator.userAgent);
+    var appDetails = chrome.app.getDetails();
+    console.group('About ' + appDetails.name);
+    if (!chrome.app.isInstalled) {
+        console.warn('Developer mode, extension is not installed, unpacked extension loaded');
+    }
+    console.info('description %o', appDetails.description);
+    console.info('version %o', appDetails.version);
+    console.info('fork me at %o', 'https://bitbucket.org/floverdevel/crx-tab-finder');
+    console.groupEnd();
 
     chrome.tabs.query({}, function (tabs) {
 
@@ -14,8 +22,9 @@
         const KEY_DOWN = 40;
 
         for (let i = 0; i < tabs.length; i += 1) {
-            window.document.body.getElementsByTagName('ul')[0].appendChild(createMenuItemFromTab(tabs[i]));
+            window.document.body.getElementsByTagName('ul')[0].appendChild(createListItemFromTab(tabs[i]));
         }
+        window.document.body.getElementsByTagName('ul')[0].appendChild(createOmniboxListItem());
 
         var searchInput = window.document.getElementById('searchInput');
         searchInput.addEventListener('keydown', function (event) {
@@ -50,7 +59,8 @@
         });
 
         searchInput.addEventListener('input', function (event) {
-            let displayedTabs = window.document.getElementsByTagName('li');
+            // filter tabs
+            let displayedTabs = window.document.getElementsByClassName('tab');
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
                 if (this.value == '') {
@@ -68,6 +78,8 @@
                     highlightTextInElement(this.value, displayedTab.getElementsByTagName('em')[0]);
                 }
             }
+
+            highlightInCreateTabElement(this.value);
         });
 
         function highlightTextInElement(text, element) {
@@ -84,6 +96,15 @@
 
         }
 
+        function highlightInCreateTabElement(text) {
+            let createNewTab = window.document.getElementById('create_new_tab');
+            createNewTab.title = text;
+            createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' (new tab)';
+            createNewTab.setAttribute('search-text', text);
+            //createNewTab.classList.add('visible');
+
+        }
+
         function unselectAllTabs() {
             let displayedTabs = window.document.getElementsByTagName('li');
             for (let i = 0; i < displayedTabs.length; i += 1) {
@@ -95,12 +116,12 @@
         function selectTab(tab) {
             unselectAllTabs();
             tab.classList.add('selected');
-            //currentSelectedDisplayedTab = tab;
         }
 
-        function createMenuItemFromTab(tab) {
+        function createListItemFromTab(tab) {
             var li = window.document.createElement('li');
             li.classList.add('visible');
+            li.classList.add('tab');
             li.title = tab.url;
             li.setAttribute('data-tab-window-id', tab.windowId);
             li.setAttribute('data-tab-id', tab.id);
@@ -144,6 +165,10 @@
             }
 
             function getFavIconBasedOnPlatform () {
+                //console.log('user agent %o', window.navigator.userAgent);
+                //console.trace('todo detect canary build, chromium build, etc, from UserAgent for getFavIconBasedOnPlatform ...');
+                //return 'resources/chromium-16.png';
+                //return 'resources/chrome-canary-32.png';
                 return 'resources/chrome-32.png';
             }
 
@@ -166,6 +191,22 @@
                 return element;
             }
         }
-    });
 
+        function createOmniboxListItem() {
+            var li = window.document.createElement('li');
+            li.classList.add('visible');
+            li.id = 'create_new_tab';
+            li.innerText = '(new tab)';
+            li.setAttribute('search-text', 'chrome://newtab');
+            li.addEventListener('click', function () {
+                chrome.tabs.create({
+                    'url': this.attributes['search-text'].value
+                });
+            });
+            li.addEventListener('mouseover', function () {
+                selectTab(this);
+            });
+            return li;
+        }
+    });
 })(window, chrome);

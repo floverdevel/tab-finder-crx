@@ -1,7 +1,8 @@
 body {
     padding: 0;
     margin: 0;
-    width: 600px;
+    min-width: 600px;
+    width: 100%;
 }
 img {
     padding-right: 8px;
@@ -15,8 +16,8 @@ img.big {
     height: 32px;
 }
 a {
+    overflow: hidden;
     position: absolute;
-    width: 100%;
 }
 ul {
     margin: 0;
