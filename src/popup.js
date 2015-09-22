@@ -100,7 +100,7 @@
             let createNewTab = window.document.getElementById('create_new_tab');
             createNewTab.title = text;
             createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' (new tab)';
-            createNewTab.setAttribute('search-text', 'https://www.google.com/search?q=' + text);
+            createNewTab.setAttribute('search-text', text);
             //createNewTab.classList.add('visible');
 
         }
@@ -199,14 +199,35 @@
             li.innerText = '(new tab)';
             li.setAttribute('search-text', 'chrome://newtab');
             li.addEventListener('click', function () {
+                var searchText = this.attributes['search-text'].value;
+                if (!isLookingLikeAnUri(searchText)) {
+                    searchText = 'https://www.google.com/search?q=' + this.attributes['search-text'].value
+                }
                 chrome.tabs.create({
-                    'url': this.attributes['search-text'].value
+                    'url': searchText
                 });
             });
             li.addEventListener('mouseover', function () {
                 selectTab(this);
             });
             return li;
+
+            function isLookingLikeAnUri(text) {
+                if (typeof text !== 'string') {
+                    return false;
+                }
+
+                if (!text.length) {
+                    return false;
+                }
+
+                let parsedUrl = text.split('://');
+                if (parsedUrl.length != 2) {
+                    return false;
+                }
+
+                return true;
+            }
         }
     });
 })(window, chrome);
