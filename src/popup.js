@@ -100,7 +100,7 @@
             let createNewTab = window.document.getElementById('create_new_tab');
             createNewTab.title = text;
             createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' (new tab)';
-            createNewTab.setAttribute('search-text', text);
+            createNewTab.setAttribute('search-text', 'https://www.google.com/search?q=' + text);
             //createNewTab.classList.add('visible');
 
         }
