@@ -1,25 +1,25 @@
 # crx-tab-finder
-## 0.0.0.1
+## 0.1
 ### Google Chrome extension to find an opened tab
 
-Features :
+Goals :
 
-1. afficher la liste des onglets qui sont ouverts
-2. faire un filtre (par title et/ou url) dans cette liste
-3. naviguer vers l'onglet choisi
-4. créer un nouvel onglet avec le omnibox pré-rempli (comming soon)
+1. display the list of currently opened tabs, even spread across in multiple windows
+2. filter the list by searching by tabs's title and / or tab's URL
+3. navigate to the selected tab, and bring its containing window to the foreground
+4. create a new tab with the pre-filled omnibox (comming soon)
 
-Pour l'instant je n'ai que le code source sur bitbucket dans un repo privé, par ici :
+For now I only have the source code on bitbucket in a private repository, here:
 https://bitbucket.org/floverdevel/crx-tab-finder
 
-Si ça vous intéresse ça vous prend un username sur bitbucket pour que je puisse vous donner accès en pull-request.
-Éventuellement je vais distribuer le plugin officiellement sur Google Play Store mais en attendant vous avez l'honneur d'être mes _beta-testeurs_
+If you're interested to test it and SEND ME YOUR FEEDBACK all it takes his a bitbucket username so I can give you read access.
+Eventually I will officially distribute the plugin on Google Play Store but until then you have the honor of being my _beta-testers_
 
-Pour l'installer, suivez la documentation de Google :
+To install, follow the documentation for Google:
 https://developer.chrome.com/extensions/getstarted#unpacked
 
 
-Aussi, c'est la version 0.0.0.1 donc très alpha.
-Pas clean code.
-Pas de tests automatisés.
-Ça a commencé comme P.O.C. et ça s'est avéré fonctionnel assez rapidement.
+This project started as proof of concept (POC) and it proved to be functional rather quickly
+Also, it's very alpha version of 0.1, so, for now :
+- No clean code
+- No automated testing

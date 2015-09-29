@@ -99,7 +99,11 @@
         function highlightInCreateTabElement(text) {
             let createNewTab = window.document.getElementById('create_new_tab');
             createNewTab.title = text;
-            createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' (new tab)';
+            if (text.length) {
+                createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' (new tab)';
+            } else {
+                createNewTab.innerText = '(new tab)';
+            }
             createNewTab.setAttribute('search-text', text);
             //createNewTab.classList.add('visible');
 
@@ -150,6 +154,9 @@
             function createFavIconFromTab(tab) {
                 var element = window.document.createElement('img');
                 element.classList.add('small');
+                element.onerror = function () {
+                    this.src = getFavIconBasedOnPlatform();
+                };
                 if (tab.url.indexOf('chrome://') == 0) {
                     element.src = 'resources/crx-favicon.png';
                 } else if (tab.url.indexOf('file://') == 0) {
@@ -157,9 +164,6 @@
                 } else {
                     element.src = tab.favIconUrl;
                 }
-                element.onerror = function () {
-                    this.src = getFavIconBasedOnPlatform();
-                };
 
                 return element;
             }
