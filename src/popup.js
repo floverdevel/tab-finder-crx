@@ -1,7 +1,7 @@
 /**
  * Created by eantaya on 2015-08-21.
  */
-(function (window, chrome) {
+(function (global, chrome) {
     'use strict';
 
     var appDetails = chrome.app.getDetails();
@@ -17,22 +17,33 @@
     chrome.tabs.query({}, function (tabs) {
 
         var currentSelectedDisplayedTab = -1;
+        var isShiftKeyIsPressed = false;
         const KEY_ENTER = 13;
+        const KEY_SHIFT = 16;
         const KEY_UP = 38;
         const KEY_DOWN = 40;
 
         for (let i = 0; i < tabs.length; i += 1) {
-            window.document.body.getElementsByTagName('ul')[0].appendChild(createListItemFromTab(tabs[i]));
+            global.document.body.getElementsByTagName('ul')[0].appendChild(createListItemFromTab(tabs[i]));
         }
-        window.document.body.getElementsByTagName('ul')[0].appendChild(createOmniboxListItem());
+        global.document.body.getElementsByTagName('ul')[0].appendChild(createOmniboxListItem());
 
-        var searchInput = window.document.getElementById('searchInput');
+        var searchInput = global.document.getElementById('searchInput');
+        searchInput.addEventListener('keyup', function (event) {
+            isShiftKeyIsPressed = !!event.shiftKey;
+            switch (event.which) {
+                case KEY_SHIFT: {
+                    highlightInCreateTabElement(this.value);
+                    break;
+                }
+            }
+        });
         searchInput.addEventListener('keydown', function (event) {
-
+            isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_ENTER : {
                     if (currentSelectedDisplayedTab !== -1) {
-                        let displayedTabs = window.document.getElementsByClassName('visible');
+                        let displayedTabs = global.document.getElementsByClassName('visible');
                         displayedTabs[currentSelectedDisplayedTab].click();
                     }
                     break;
@@ -45,9 +56,13 @@
                     currentSelectedDisplayedTab -= 1;
                     break;
                 }
+                case KEY_SHIFT: {
+                    highlightInCreateTabElement(this.value);
+                    break;
+                }
             }
 
-            let displayedTabs = window.document.getElementsByClassName('visible');
+            let displayedTabs = global.document.getElementsByClassName('visible');
             if (currentSelectedDisplayedTab >= displayedTabs.length) {
                 currentSelectedDisplayedTab = 0;
             }
@@ -59,8 +74,7 @@
         });
 
         searchInput.addEventListener('input', function (event) {
-            // filter tabs
-            let displayedTabs = window.document.getElementsByClassName('tab');
+            let displayedTabs = global.document.getElementsByClassName('tab');
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
                 if (this.value == '') {
@@ -97,20 +111,19 @@
         }
 
         function highlightInCreateTabElement(text) {
-            let createNewTab = window.document.getElementById('create_new_tab');
+            let createNewTab = global.document.getElementById('create_new_tab');
             createNewTab.title = text;
             if (text.length) {
-                createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' (new tab)';
+                createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' ' + getNewTabLabel();
             } else {
-                createNewTab.innerText = '(new tab)';
+                createNewTab.innerText = getNewTabLabel();
             }
             createNewTab.setAttribute('search-text', text);
-            //createNewTab.classList.add('visible');
 
         }
 
         function unselectAllTabs() {
-            let displayedTabs = window.document.getElementsByTagName('li');
+            let displayedTabs = global.document.getElementsByTagName('li');
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
                 displayedTab.classList.remove('selected');
@@ -123,7 +136,7 @@
         }
 
         function createListItemFromTab(tab) {
-            var li = window.document.createElement('li');
+            var li = global.document.createElement('li');
             li.classList.add('visible');
             li.classList.add('tab');
             li.title = tab.url;
@@ -147,12 +160,12 @@
 
             li.appendChild(createFavIconFromTab(tab));
             li.appendChild(createHyperLinkFromTab(tab));
-            li.appendChild(window.document.createElement('br'));
+            li.appendChild(global.document.createElement('br'));
             li.appendChild(createUrlFromTab(tab));
             return li;
 
             function createFavIconFromTab(tab) {
-                var element = window.document.createElement('img');
+                var element = global.document.createElement('img');
                 element.classList.add('small');
                 element.onerror = function () {
                     this.src = getFavIconBasedOnPlatform();
@@ -177,7 +190,7 @@
             }
 
             function createHyperLinkFromTab(tab) {
-                var element = window.document.createElement('a');
+                var element = global.document.createElement('a');
                 element.textContent = tab.title;
                 element.title = tab.url;
                 element.href = tab.url;
@@ -189,7 +202,7 @@
             }
 
             function createUrlFromTab(tab) {
-                var element = window.document.createElement('em');
+                var element = global.document.createElement('em');
                 element.textContent = tab.url;
 
                 return element;
@@ -197,19 +210,32 @@
         }
 
         function createOmniboxListItem() {
-            var li = window.document.createElement('li');
+            var li = global.document.createElement('li');
             li.classList.add('visible');
             li.id = 'create_new_tab';
-            li.innerText = '(new tab)';
+            li.innerText = getNewTabLabel();
             li.setAttribute('search-text', 'chrome://newtab');
             li.addEventListener('click', function () {
                 var searchText = this.attributes['search-text'].value;
                 if (!isLookingLikeAnUri(searchText)) {
                     searchText = 'https://www.google.com/search?q=' + this.attributes['search-text'].value
+                } else {
+                    if (searchText.indexOf('http://') === -1) {
+                        searchText = 'http://' + searchText;
+                    }
+
                 }
-                chrome.tabs.create({
-                    'url': searchText
-                });
+
+                if (isShiftKeyIsPressed) {
+                    chrome.windows.create({
+                        'url': searchText,
+                        'focused' : true
+                    });
+                } else {
+                    chrome.tabs.create({
+                        'url': searchText
+                    });
+                }
             });
             li.addEventListener('mouseover', function () {
                 selectTab(this);
@@ -226,12 +252,24 @@
                 }
 
                 let parsedUrl = text.split('://');
-                if (parsedUrl.length != 2) {
-                    return false;
+                if (parsedUrl.length == 2) {
+                    return true;
                 }
 
-                return true;
+                parsedUrl = text.split('.');
+                if (parsedUrl.length > 1) {
+                    var nonWordRegEx = new RegExp('^\w');
+                    return parsedUrl.every(function (currentValue, index, completeArray) {
+                        return !nonWordRegEx.test(currentValue);
+                    });
+                }
+
+                return false;
             }
+        }
+
+        function getNewTabLabel() {
+            return isShiftKeyIsPressed ? '(new window)' : '(new tab)';
         }
     });
 })(window, chrome);
