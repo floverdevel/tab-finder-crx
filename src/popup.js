@@ -7,7 +7,9 @@
     var appDetails = chrome.app.getDetails();
     console.group('About ' + appDetails.name);
     if (!chrome.app.isInstalled) {
-        console.warn('Developer mode, extension is not installed, unpacked extension loaded');
+        console.warn('loaded as an unpacked extension');
+        console.warn('developer mode');
+        console.warn('extension is not installed');
     }
     console.info('description %o', appDetails.description);
     console.info('version %o', appDetails.version);
@@ -15,6 +17,7 @@
     console.groupEnd();
 
     chrome.tabs.query({}, function (tabs) {
+        console.table(tabs);
 
         var currentSelectedDisplayedTab = -1;
         var isShiftKeyIsPressed = false;
@@ -38,6 +41,7 @@
                 }
             }
         });
+
         searchInput.addEventListener('keydown', function (event) {
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
@@ -168,24 +172,15 @@
                 var element = global.document.createElement('img');
                 element.classList.add('small');
                 element.onerror = function () {
-                    this.src = getFavIconBasedOnPlatform();
+                    this.src = getPlatformFavIcon();
                 };
-                if (tab.url.indexOf('chrome://') == 0) {
-                    element.src = 'resources/crx-favicon.png';
-                } else if (tab.url.indexOf('file://') == 0) {
-                    element.src = 'resources/file.png';
-                } else {
-                    element.src = tab.favIconUrl;
-                }
+
+                element.src = getTabFavIcon(tab);
 
                 return element;
             }
 
-            function getFavIconBasedOnPlatform () {
-                //console.log('user agent %o', window.navigator.userAgent);
-                //console.trace('todo detect canary build, chromium build, etc, from UserAgent for getFavIconBasedOnPlatform ...');
-                //return 'resources/chromium-16.png';
-                //return 'resources/chrome-canary-32.png';
+            function getPlatformFavIcon () {
                 return 'resources/chrome-32.png';
             }
 
@@ -273,3 +268,18 @@
         }
     });
 })(window, chrome);
+
+function getTabFavIcon(tab) {
+    var favIconUrls = [
+        { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png' },
+        { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png' },
+        { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png' },
+        { 'name': 'file://', 'url': 'resources/file.png' }
+    ];
+
+    var systemFavIconUrl = favIconUrls.find(function (favIcon) {
+        return tab.url.indexOf(favIcon.name) == 0;
+    });
+
+    return systemFavIconUrl || tab.favIconUrl;
+}

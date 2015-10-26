@@ -16,7 +16,7 @@ img.big {
     height: 32px;
 }
 a {
-    overflow: hidden;
+    text-overflow: ellipsis;
     position: absolute;
 }
 ul {
