@@ -1,13 +1,13 @@
 # crx-tab-finder
-## 0.2
+## 0.3
 ### Google Chrome extension to find an opened tab
 
 Goals :
 
-1. display the list of currently opened tabs, even spread across in multiple windows
-2. filter the list by searching by tabs's title and / or tab's URL
+1. display the list of currently opened tabs, even spread across multiple windows
+2. filter the list by searching by tabs's title and/or tab's URL
 3. navigate to the selected tab, and bring its containing window to the foreground
-4. create a new tab with the pre-filled omnibox (comming soon)
+4. create a new tab or a new window with the pre-filled omnibox
 
 For now I only have the source code on bitbucket in a private repository, here:
 https://bitbucket.org/floverdevel/crx-tab-finder
