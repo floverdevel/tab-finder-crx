@@ -162,11 +162,33 @@
                 selectTab(this);
             });
 
+            if (tab.incognito) {
+                li.appendChild(createIncognitoIcon());
+            }
+            if (tab.audible) {
+                //li.appendChild(createIncognitoIcon());
+            }
+            if (tab.pinned) {
+                //li.appendChild(createIncognitoIcon());
+            }
+            if (tab.mutedInfo.muted) {
+                //li.appendChild(createIncognitoIcon());
+            }
             li.appendChild(createFavIconFromTab(tab));
             li.appendChild(createHyperLinkFromTab(tab));
             li.appendChild(global.document.createElement('br'));
             li.appendChild(createUrlFromTab(tab));
+
             return li;
+
+            function createIncognitoIcon(tab) {
+                var element = global.document.createElement('img');
+                element.classList.add('incognito');
+                element.classList.add('big');
+                element.classList.add('right');
+
+                return element;
+            }
 
             function createFavIconFromTab(tab) {
                 var element = global.document.createElement('img');
