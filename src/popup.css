@@ -18,9 +18,19 @@ img.big {
     width: 32px;
     height: 32px;
 }
+img.audible {
+    content: url("resources/sound_audible.png");
+}
+img.muted {
+    content: url("resources/sound_muted.png");
+}
 img.incognito {
     content: url("resources/chrome-incognito-v1.png");
 }
+img.pinned {
+    content: url("resources/pinned.png");
+}
+
 a {
     text-overflow: ellipsis;
     position: absolute;

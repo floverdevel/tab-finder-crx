@@ -1,5 +1,5 @@
 # crx-tab-finder
-## 0.3.1
+## 0.3.2
 ### Google Chrome extension to find an opened tab
 
 Goals :
@@ -18,8 +18,7 @@ Eventually I will officially distribute the plugin on Google Play Store but unti
 To install, follow the documentation for Google:
 https://developer.chrome.com/extensions/getstarted#unpacked
 
-
 This project started as proof of concept (POC) and it proved to be functional rather quickly
-Also, it's very alpha version of 0.1, so, for now :
+Also, it's very alpha version, so, for now :
 - No clean code
 - No automated testing

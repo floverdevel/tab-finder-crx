@@ -166,13 +166,13 @@
                 li.appendChild(createIncognitoIcon());
             }
             if (tab.audible) {
-                //li.appendChild(createIncognitoIcon());
-            }
-            if (tab.pinned) {
-                //li.appendChild(createIncognitoIcon());
+                li.appendChild(createAudibleIcon());
             }
             if (tab.mutedInfo.muted) {
-                //li.appendChild(createIncognitoIcon());
+                li.appendChild(createMutedIcon());
+            }
+            if (tab.pinned) {
+                li.appendChild(createPinnedIcon());
             }
             li.appendChild(createFavIconFromTab(tab));
             li.appendChild(createHyperLinkFromTab(tab));
@@ -181,10 +181,37 @@
 
             return li;
 
+            function createAudibleIcon(tab) {
+                var element = global.document.createElement('img');
+                element.classList.add('audible');
+                element.classList.add('small');
+                element.classList.add('right');
+
+                return element;
+            }
+
+            function createMutedIcon(tab) {
+                var element = global.document.createElement('img');
+                element.classList.add('muted');
+                element.classList.add('small');
+                element.classList.add('right');
+
+                return element;
+            }
+
             function createIncognitoIcon(tab) {
                 var element = global.document.createElement('img');
                 element.classList.add('incognito');
-                element.classList.add('big');
+                element.classList.add('small');
+                element.classList.add('right');
+
+                return element;
+            }
+
+            function createPinnedIcon(tab) {
+                var element = global.document.createElement('img');
+                element.classList.add('pinned');
+                element.classList.add('small');
                 element.classList.add('right');
 
                 return element;
