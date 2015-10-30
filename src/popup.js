@@ -293,10 +293,10 @@
 
 function getTabFavIcon(tab) {
     var favIconUrls = [
-        { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png' },
-        { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png' },
-        { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png' },
-        { 'name': 'file://', 'url': 'resources/file.png' }
+        { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png'},
+        { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png'},
+        { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png'},
+        { 'name': 'file://', 'url': 'resources/file.png'}
     ];
 
     var systemFavIconUrl = favIconUrls.find(function (favIcon) {
