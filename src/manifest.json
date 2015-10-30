@@ -1,6 +1,6 @@
 {
     "name": "crx-tab-finder",
-    "version": "0.3",
+    "version": "0.3.1",
     "manifest_version": 2,
     "description": "Find and navigate to an opened tab",
     "icons": {
