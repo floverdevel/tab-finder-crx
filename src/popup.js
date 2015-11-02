@@ -162,18 +162,11 @@
                 selectTab(this);
             });
 
-            if (tab.incognito) {
-                li.appendChild(createIncognitoIcon());
-            }
-            if (tab.audible) {
-                li.appendChild(createAudibleIcon());
-            }
-            if (tab.mutedInfo.muted) {
-                li.appendChild(createMutedIcon());
-            }
-            if (tab.pinned) {
-                li.appendChild(createPinnedIcon());
-            }
+            li.appendChild(createIncognitoIconFromTab(tab));
+            li.appendChild(createAudibleIconFromTab(tab));
+            li.appendChild(createMutedIconFromTab(tab));
+            li.appendChild(createPinnedIconFromTab(tab));
+
             li.appendChild(createFavIconFromTab(tab));
             li.appendChild(createHyperLinkFromTab(tab));
             li.appendChild(global.document.createElement('br'));
@@ -181,38 +174,50 @@
 
             return li;
 
-            function createAudibleIcon(tab) {
+            function createAudibleIconFromTab(tab) {
                 var element = global.document.createElement('img');
                 element.classList.add('audible');
                 element.classList.add('small');
                 element.classList.add('right');
+                if (!tab.audible) {
+                    element.classList.add('disabled');
+                }
 
                 return element;
             }
 
-            function createMutedIcon(tab) {
+            function createMutedIconFromTab(tab) {
                 var element = global.document.createElement('img');
                 element.classList.add('muted');
                 element.classList.add('small');
                 element.classList.add('right');
+                if (!tab.mutedInfo.muted) {
+                    element.classList.add('disabled');
+                }
 
                 return element;
             }
 
-            function createIncognitoIcon(tab) {
+            function createIncognitoIconFromTab(tab) {
                 var element = global.document.createElement('img');
                 element.classList.add('incognito');
                 element.classList.add('small');
                 element.classList.add('right');
+                if (!tab.incognito) {
+                    element.classList.add('disabled');
+                }
 
                 return element;
             }
 
-            function createPinnedIcon(tab) {
+            function createPinnedIconFromTab(tab) {
                 var element = global.document.createElement('img');
                 element.classList.add('pinned');
                 element.classList.add('small');
                 element.classList.add('right');
+                if (!tab.pinned) {
+                    element.classList.add('disabled');
+                }
 
                 return element;
             }

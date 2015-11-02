@@ -10,6 +10,9 @@ body {
 img {
     padding-right: 8px;
 }
+img.disabled {
+    opacity: 0.1;
+}
 img.small {
     width: 16px;
     height: 16px;
