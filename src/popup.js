@@ -143,7 +143,7 @@
             var li = global.document.createElement('li');
             li.classList.add('visible');
             li.classList.add('tab');
-            li.title = tab.url;
+            li.title = tab.title + "\n--------\n" + tab.url;
             li.setAttribute('data-tab-window-id', tab.windowId);
             li.setAttribute('data-tab-id', tab.id);
             li.addEventListener('click', function () {
@@ -241,7 +241,6 @@
             function createHyperLinkFromTab(tab) {
                 var element = global.document.createElement('a');
                 element.textContent = tab.title;
-                element.title = tab.url;
                 element.href = tab.url;
                 element.onclick = function (event) {
                     event.preventDefault();
