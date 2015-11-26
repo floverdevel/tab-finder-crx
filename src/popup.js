@@ -4,7 +4,9 @@
 (function (global, chrome) {
     'use strict';
 
+    var console = global.console;
     var appDetails = chrome.app.getDetails();
+
     console.group('About ' + appDetails.name);
     if (!chrome.app.isInstalled) {
         console.warn('loaded as an unpacked extension');
@@ -17,8 +19,6 @@
     console.groupEnd();
 
     chrome.tabs.query({}, function (tabs) {
-        console.table(tabs);
-
         var currentSelectedDisplayedTab = -1;
         var isShiftKeyIsPressed = false;
         const KEY_ENTER = 13;
@@ -334,5 +334,11 @@ function getTabFavIcon(tab) {
         return tab.url.indexOf(favIcon.name) == 0;
     });
 
-    return systemFavIconUrl || tab.favIconUrl;
+    if (!!systemFavIconUrl) {
+        return systemFavIconUrl.url;
+    }
+    if (!!tab.favIconUrl) {
+        return tab.favIconUrl;
+    }
+    return 'resources/chrome-32.png';
 }
