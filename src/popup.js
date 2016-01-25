@@ -262,33 +262,34 @@
             li.classList.add('visible');
             li.id = 'create_new_tab';
             li.innerText = getNewTabLabel();
-            li.setAttribute('search-text', 'chrome://newtab');
-            li.addEventListener('click', function () {
-                var searchText = this.attributes['search-text'].value;
-                if (!isLookingLikeAnUri(searchText)) {
-                    searchText = 'https://www.google.com/search?q=' + this.attributes['search-text'].value
-                } else {
-                    if (searchText.indexOf('http://') === -1) {
-                        searchText = 'http://' + searchText;
-                    }
-
-                }
-
-                if (isShiftKeyIsPressed) {
-                    chrome.windows.create({
-                        'url': searchText,
-                        'focused' : true
-                    });
-                } else {
-                    chrome.tabs.create({
-                        'url': searchText
-                    });
-                }
-            });
+            li.setAttribute('search-text', '');
+            li.addEventListener('click', openNewTab);
             li.addEventListener('mouseover', function () {
                 selectTab(this);
             });
             return li;
+
+            function openNewTab() {
+                var searchText = !!this.attributes['search-text'].value ? this.attributes['search-text'].value : 'chrome://newtab';
+                if (isLookingLikeAnUri(searchText)) {
+                    if (searchText.indexOf('://') === -1) {
+                        searchText = 'http://' + searchText;
+                    }
+                } else {
+                    searchText = 'https://www.google.com/search?q=' + this.attributes['search-text'].value
+                }
+                var tabCreationOptions = {};
+                if (!!searchText) {
+                    tabCreationOptions.url = searchText;
+                }
+
+                if (isShiftKeyIsPressed) {
+                    tabCreationOptions.focused = true;
+                    chrome.windows.create(tabCreationOptions);
+                } else {
+                    chrome.tabs.create(tabCreationOptions);
+                }
+            }
 
             function isLookingLikeAnUri(text) {
                 if (typeof text !== 'string') {
