@@ -191,7 +191,7 @@
                 element.classList.add('muted');
                 element.classList.add('small');
                 element.classList.add('right');
-                if (!tab.mutedInfo.muted) {
+                if (!tab.mutedInfo || !tab.mutedInfo.muted) {
                     element.classList.add('disabled');
                 }
 

@@ -1,7 +1,7 @@
 {
     "name": "Tab Finder - by floverdevel",
     "short_name": "tabfindercrx",
-    "version": "0.3.8",
+    "version": "0.3.9",
     "manifest_version": 2,
     "description": "Find and navigate to an opened tab",
     "icons": {
