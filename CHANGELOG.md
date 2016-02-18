@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - close a tab
 
+## 0.3.9.2
+_2016-02-17_
+- set the manifest's minimum_chrome_version to 27.0.1453.110 so the extension can be install on older browser via the google chrome webstore
+
 ## 0.3.9.1
 _2016-02-17_
 - fix a crash on older chrome version (tested on my chrome version 27.0.1453.110).  Google Chrome webstore will not let you install but if install from source, this will help you :)
