@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - close a tab
 
+## 0.3.9.1
+_2016-02-17_
+- fix a crash on older chrome version (tested on my chrome version 27.0.1453.110).  Google Chrome webstore will not let you install but if install from source, this will help you :)
+
 ## 0.3.9
 _2016-02-15_
 - fix a crash when trying to render muted state on chrome version 45 or less

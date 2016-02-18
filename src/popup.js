@@ -21,12 +21,12 @@
     chrome.tabs.query({}, function (tabs) {
         var currentSelectedDisplayedTab = -1;
         var isShiftKeyIsPressed = false;
-        const KEY_ENTER = 13;
-        const KEY_SHIFT = 16;
-        const KEY_UP = 38;
-        const KEY_DOWN = 40;
+        var KEY_ENTER = 13;
+        var KEY_SHIFT = 16;
+        var KEY_UP = 38;
+        var KEY_DOWN = 40;
 
-        for (let i = 0; i < tabs.length; i += 1) {
+        for (var i = 0; i < tabs.length; i += 1) {
             global.document.body.getElementsByTagName('ul')[0].appendChild(createListItemFromTab(tabs[i]));
         }
         global.document.body.getElementsByTagName('ul')[0].appendChild(createOmniboxListItem());
@@ -43,12 +43,12 @@
         });
 
         searchInput.addEventListener('keydown', function (event) {
+            var displayedVisiblesTabs = global.document.getElementsByClassName('visible');
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_ENTER : {
                     if (currentSelectedDisplayedTab !== -1) {
-                        let displayedTabs = global.document.getElementsByClassName('visible');
-                        displayedTabs[currentSelectedDisplayedTab].click();
+                        displayedVisiblesTabs[currentSelectedDisplayedTab].click();
                     }
                     break;
                 }
@@ -66,27 +66,27 @@
                 }
             }
 
-            let displayedTabs = global.document.getElementsByClassName('visible');
-            if (currentSelectedDisplayedTab >= displayedTabs.length) {
+
+            if (currentSelectedDisplayedTab >= displayedVisiblesTabs.length) {
                 currentSelectedDisplayedTab = 0;
             }
 
             if (currentSelectedDisplayedTab < 0) {
-                currentSelectedDisplayedTab = displayedTabs.length - 1;
+                currentSelectedDisplayedTab = displayedVisiblesTabs.length - 1;
             }
-            selectTab(displayedTabs[currentSelectedDisplayedTab]);
+            selectTab(displayedVisiblesTabs[currentSelectedDisplayedTab]);
         });
 
         searchInput.addEventListener('input', function (event) {
-            let displayedTabs = global.document.getElementsByClassName('tab');
-            for (let i = 0; i < displayedTabs.length; i += 1) {
-                let displayedTab = displayedTabs[i];
+            var displayedTabs = global.document.getElementsByClassName('tab');
+            for (var i = 0; i < displayedTabs.length; i += 1) {
+                var displayedTab = displayedTabs[i];
                 if (this.value == '') {
                     displayedTab.classList.add('visible');
                     displayedTab.getElementsByTagName('a')[0].innerHTML = displayedTab.getElementsByTagName('a')[0].textContent;
                     displayedTab.getElementsByTagName('em')[0].innerHTML = displayedTab.getElementsByTagName('em')[0].textContent;
                 } else {
-                    let textPosition = displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase());
+                    var textPosition = displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase());
                     if (textPosition != -1) {
                         displayedTab.classList.add('visible');
                     } else {
@@ -101,7 +101,7 @@
         });
 
         function highlightTextInElement(text, element) {
-            let textPosition = element.textContent.toLowerCase().indexOf(text.toLowerCase());
+            var textPosition = element.textContent.toLowerCase().indexOf(text.toLowerCase());
             if (textPosition != -1) {
                 element.innerHTML = element.textContent.substr(0, textPosition) +
                     '<span class="highlight">' +
@@ -115,7 +115,7 @@
         }
 
         function highlightInCreateTabElement(text) {
-            let createNewTab = global.document.getElementById('create_new_tab');
+            var createNewTab = global.document.getElementById('create_new_tab');
             createNewTab.title = text;
             if (text.length) {
                 createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' ' + getNewTabLabel();
@@ -127,9 +127,9 @@
         }
 
         function unselectAllTabs() {
-            let displayedTabs = global.document.getElementsByTagName('li');
-            for (let i = 0; i < displayedTabs.length; i += 1) {
-                let displayedTab = displayedTabs[i];
+            var displayedTabs = global.document.getElementsByTagName('li');
+            for (var i = 0; i < displayedTabs.length; i += 1) {
+                var displayedTab = displayedTabs[i];
                 displayedTab.classList.remove('selected');
             }
         }
@@ -147,8 +147,8 @@
             li.setAttribute('data-tab-window-id', tab.windowId);
             li.setAttribute('data-tab-id', tab.id);
             li.addEventListener('click', function () {
-                let tabWindowId = parseInt(this.attributes['data-tab-window-id'].value);
-                let tabId = parseInt(this.attributes['data-tab-id'].value);
+                var tabWindowId = parseInt(this.attributes['data-tab-window-id'].value);
+                var tabId = parseInt(this.attributes['data-tab-id'].value);
 
                 chrome.tabs.update(tabId, {
                     'active': true
@@ -300,7 +300,7 @@
                     return false;
                 }
 
-                let parsedUrl = text.split('://');
+                var parsedUrl = text.split('://');
                 if (parsedUrl.length == 2) {
                     return true;
                 }
@@ -321,25 +321,48 @@
             return isShiftKeyIsPressed ? '(new window)' : '(new tab)';
         }
     });
+
+    if (!Array.prototype.find) {
+        Array.prototype.find = function(predicate) {
+            if (this === null) {
+                throw new TypeError('Array.prototype.find called on null or undefined');
+            }
+            if (typeof predicate !== 'function') {
+                throw new TypeError('predicate must be a function');
+            }
+            var list = Object(this);
+            var length = list.length >>> 0;
+            var thisArg = arguments[1];
+            var value;
+
+            for (var i = 0; i < length; i++) {
+                value = list[i];
+                if (predicate.call(thisArg, value, i, list)) {
+                    return value;
+                }
+            }
+            return undefined;
+        };
+    }
+
+    function getTabFavIcon(tab) {
+        var favIconUrls = [
+            { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png'},
+            { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png'},
+            { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png'},
+            { 'name': 'file://', 'url': 'resources/file.png'}
+        ];
+
+        var systemFavIconUrl = favIconUrls.find(function (favIcon) {
+            return tab.url.indexOf(favIcon.name) == 0;
+        });
+
+        if (!!systemFavIconUrl) {
+            return systemFavIconUrl.url;
+        }
+        if (!!tab.favIconUrl) {
+            return tab.favIconUrl;
+        }
+        return 'resources/chrome-32.png';
+    }
 })(window, chrome);
-
-function getTabFavIcon(tab) {
-    var favIconUrls = [
-        { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png'},
-        { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png'},
-        { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png'},
-        { 'name': 'file://', 'url': 'resources/file.png'}
-    ];
-
-    var systemFavIconUrl = favIconUrls.find(function (favIcon) {
-        return tab.url.indexOf(favIcon.name) == 0;
-    });
-
-    if (!!systemFavIconUrl) {
-        return systemFavIconUrl.url;
-    }
-    if (!!tab.favIconUrl) {
-        return tab.favIconUrl;
-    }
-    return 'resources/chrome-32.png';
-}
