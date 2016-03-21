@@ -146,17 +146,28 @@
             li.title = tab.title + "\n--------\n" + tab.url;
             li.setAttribute('data-tab-window-id', tab.windowId);
             li.setAttribute('data-tab-id', tab.id);
-            li.addEventListener('click', function () {
-                let tabWindowId = parseInt(this.attributes['data-tab-window-id'].value);
+            li.addEventListener('click', function (event) {
                 let tabId = parseInt(this.attributes['data-tab-id'].value);
-
-                chrome.tabs.update(tabId, {
-                    'active': true
-                }, function () {
-                    chrome.windows.update(tabWindowId, {
-                        'focused': true
-                    });
-                });
+                let tabWindowId = parseInt(this.attributes['data-tab-window-id'].value);
+                switch (event.which) {
+                    case 1:
+                        chrome.tabs.update(tabId, {
+                            'active': true
+                        }, function () {
+                            chrome.windows.update(tabWindowId, {
+                                'focused': true
+                            });
+                        });
+                        break;
+                    case 2:
+                        chrome.tabs.remove(tabId);
+                        this.removeEventListener('click');
+                        break;
+                    case 0:
+                    case 3:
+                    default:
+                        return;
+                }
             });
             li.addEventListener('mouseover', function () {
                 selectTab(this);
@@ -223,6 +234,8 @@
             }
 
             function createFavIconFromTab(tab) {
+                //var getTabFavIcon = require('./tab.js');
+                import * as myModule from "./tab.js";
                 var element = global.document.createElement('img');
                 element.classList.add('small');
                 element.onerror = function () {
@@ -322,24 +335,3 @@
         }
     });
 })(window, chrome);
-
-function getTabFavIcon(tab) {
-    var favIconUrls = [
-        { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png'},
-        { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png'},
-        { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png'},
-        { 'name': 'file://', 'url': 'resources/file.png'}
-    ];
-
-    var systemFavIconUrl = favIconUrls.find(function (favIcon) {
-        return tab.url.indexOf(favIcon.name) == 0;
-    });
-
-    if (!!systemFavIconUrl) {
-        return systemFavIconUrl.url;
-    }
-    if (!!tab.favIconUrl) {
-        return tab.favIconUrl;
-    }
-    return 'resources/chrome-32.png';
-}

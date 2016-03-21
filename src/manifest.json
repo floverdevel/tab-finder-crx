@@ -13,9 +13,10 @@
     "browser_action": {
         "default_icon": "resources/icon_128.png",
         "default_title": "Find and navigate to an opened tab",
-        "default_popup": "popup.html"
+        "default_popup": "application.html"
     },
     "permissions": [
         "tabs"
-    ]
+    ],
+    "content_scripts": ["tab.js"]
 }

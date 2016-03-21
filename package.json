@@ -2,7 +2,7 @@
   "name": "tabfindercrx",
   "version": "0.3.9",
   "description": "Find and navigate to an opened tab",
-  "main": "popup.js",
+  "main": "application.html",
   "directories": {
     "test": "spec"
   },
