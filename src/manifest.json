@@ -17,6 +17,5 @@
     },
     "permissions": [
         "tabs"
-    ],
-    "content_scripts": ["tab.js"]
+    ]
 }

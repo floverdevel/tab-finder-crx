@@ -1,21 +1,19 @@
-/**
- * Created by eantaya on 2015-08-21.
- */
 (function (global, chrome) {
-    'use strict';
+    "use strict";
 
     var console = global.console;
     var appDetails = chrome.app.getDetails();
+    var getTabFavIcon = global[appDetails.short_name].tab.getFavIcon;
 
-    console.group('About ' + appDetails.name);
+    console.groupCollapsed("About " + appDetails.name);
     if (!chrome.app.isInstalled) {
-        console.warn('loaded as an unpacked extension');
-        console.warn('developer mode');
-        console.warn('extension is not installed');
+        console.warn("loaded as an unpacked extension");
+        console.warn("developer mode");
+        console.warn("extension is not installed");
     }
-    console.info('description %o', appDetails.description);
-    console.info('version %o', appDetails.version);
-    console.info('fork me at %o', 'https://bitbucket.org/floverdevel/crx-tab-finder');
+    console.info("description %o", appDetails.description);
+    console.info("version %o", appDetails.version);
+    console.info("fork me at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
     console.groupEnd();
 
     chrome.tabs.query({}, function (tabs) {
@@ -27,12 +25,12 @@
         const KEY_DOWN = 40;
 
         for (let i = 0; i < tabs.length; i += 1) {
-            global.document.body.getElementsByTagName('ul')[0].appendChild(createListItemFromTab(tabs[i]));
+            global.document.body.getElementsByTagName("ul")[0].appendChild(createListItemFromTab(tabs[i]));
         }
-        global.document.body.getElementsByTagName('ul')[0].appendChild(createOmniboxListItem());
+        global.document.body.getElementsByTagName("ul")[0].appendChild(createOmniboxListItem());
 
-        var searchInput = global.document.getElementById('searchInput');
-        searchInput.addEventListener('keyup', function (event) {
+        var searchInput = global.document.getElementById("searchInput");
+        searchInput.addEventListener("keyup", function (event) {
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_SHIFT: {
@@ -42,12 +40,12 @@
             }
         });
 
-        searchInput.addEventListener('keydown', function (event) {
+        searchInput.addEventListener("keydown", function (event) {
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_ENTER : {
                     if (currentSelectedDisplayedTab !== -1) {
-                        let displayedTabs = global.document.getElementsByClassName('visible');
+                        let displayedTabs = global.document.getElementsByClassName("visible");
                         displayedTabs[currentSelectedDisplayedTab].click();
                     }
                     break;
@@ -66,7 +64,7 @@
                 }
             }
 
-            let displayedTabs = global.document.getElementsByClassName('visible');
+            let displayedTabs = global.document.getElementsByClassName("visible");
             if (currentSelectedDisplayedTab >= displayedTabs.length) {
                 currentSelectedDisplayedTab = 0;
             }
@@ -77,23 +75,23 @@
             selectTab(displayedTabs[currentSelectedDisplayedTab]);
         });
 
-        searchInput.addEventListener('input', function (event) {
-            let displayedTabs = global.document.getElementsByClassName('tab');
+        searchInput.addEventListener("input", function (event) {
+            let displayedTabs = global.document.getElementsByClassName("tab");
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
-                if (this.value == '') {
-                    displayedTab.classList.add('visible');
-                    displayedTab.getElementsByTagName('a')[0].innerHTML = displayedTab.getElementsByTagName('a')[0].textContent;
-                    displayedTab.getElementsByTagName('em')[0].innerHTML = displayedTab.getElementsByTagName('em')[0].textContent;
+                if (this.value == "") {
+                    displayedTab.classList.add("visible");
+                    displayedTab.getElementsByTagName("a")[0].innerHTML = displayedTab.getElementsByTagName("a")[0].textContent;
+                    displayedTab.getElementsByTagName("em")[0].innerHTML = displayedTab.getElementsByTagName("em")[0].textContent;
                 } else {
                     let textPosition = displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase());
                     if (textPosition != -1) {
-                        displayedTab.classList.add('visible');
+                        displayedTab.classList.add("visible");
                     } else {
-                        displayedTab.classList.remove('visible');
+                        displayedTab.classList.remove("visible");
                     }
-                    highlightTextInElement(this.value, displayedTab.getElementsByTagName('a')[0]);
-                    highlightTextInElement(this.value, displayedTab.getElementsByTagName('em')[0]);
+                    highlightTextInElement(this.value, displayedTab.getElementsByTagName("a")[0]);
+                    highlightTextInElement(this.value, displayedTab.getElementsByTagName("em")[0]);
                 }
             }
 
@@ -104,9 +102,9 @@
             let textPosition = element.textContent.toLowerCase().indexOf(text.toLowerCase());
             if (textPosition != -1) {
                 element.innerHTML = element.textContent.substr(0, textPosition) +
-                    '<span class="highlight">' +
+                    "<span class=\"highlight\">" +
                     element.textContent.substr(textPosition, text.length) +
-                    '</span>' +
+                    "</span>" +
                     element.textContent.substr(textPosition + text.length);
             } else {
                 element.innerHTML = element.textContent
@@ -115,53 +113,53 @@
         }
 
         function highlightInCreateTabElement(text) {
-            let createNewTab = global.document.getElementById('create_new_tab');
+            let createNewTab = global.document.getElementById("create_new_tab");
             createNewTab.title = text;
             if (text.length) {
-                createNewTab.innerHTML = '"<strong>' + text + '</strong>"' + ' ' + getNewTabLabel();
+                createNewTab.innerHTML = "\"<strong>" + text + "</strong>\"" + " " + getNewTabLabel();
             } else {
                 createNewTab.innerText = getNewTabLabel();
             }
-            createNewTab.setAttribute('search-text', text);
+            createNewTab.setAttribute("search-text", text);
 
         }
 
         function unselectAllTabs() {
-            let displayedTabs = global.document.getElementsByTagName('li');
+            let displayedTabs = global.document.getElementsByTagName("li");
             for (let i = 0; i < displayedTabs.length; i += 1) {
                 let displayedTab = displayedTabs[i];
-                displayedTab.classList.remove('selected');
+                displayedTab.classList.remove("selected");
             }
         }
 
         function selectTab(tab) {
             unselectAllTabs();
-            tab.classList.add('selected');
+            tab.classList.add("selected");
         }
 
         function createListItemFromTab(tab) {
-            var li = global.document.createElement('li');
-            li.classList.add('visible');
-            li.classList.add('tab');
+            var li = global.document.createElement("li");
+            li.classList.add("visible");
+            li.classList.add("tab");
             li.title = tab.title + "\n--------\n" + tab.url;
-            li.setAttribute('data-tab-window-id', tab.windowId);
-            li.setAttribute('data-tab-id', tab.id);
-            li.addEventListener('click', function (event) {
-                let tabId = parseInt(this.attributes['data-tab-id'].value);
-                let tabWindowId = parseInt(this.attributes['data-tab-window-id'].value);
+            li.setAttribute("data-tab-window-id", tab.windowId);
+            li.setAttribute("data-tab-id", tab.id);
+            li.addEventListener("click", function (event) {
+                let tabId = parseInt(this.attributes["data-tab-id"].value);
+                let tabWindowId = parseInt(this.attributes["data-tab-window-id"].value);
                 switch (event.which) {
                     case 1:
                         chrome.tabs.update(tabId, {
-                            'active': true
+                            "active": true
                         }, function () {
                             chrome.windows.update(tabWindowId, {
-                                'focused': true
+                                "focused": true
                             });
                         });
                         break;
                     case 2:
                         chrome.tabs.remove(tabId);
-                        this.removeEventListener('click');
+                        this.removeEventListener("click");
                         break;
                     case 0:
                     case 3:
@@ -169,7 +167,7 @@
                         return;
                 }
             });
-            li.addEventListener('mouseover', function () {
+            li.addEventListener("mouseover", function () {
                 selectTab(this);
             });
 
@@ -180,64 +178,62 @@
 
             li.appendChild(createFavIconFromTab(tab));
             li.appendChild(createHyperLinkFromTab(tab));
-            li.appendChild(global.document.createElement('br'));
+            li.appendChild(global.document.createElement("br"));
             li.appendChild(createUrlFromTab(tab));
 
             return li;
 
             function createAudibleIconFromTab(tab) {
-                var element = global.document.createElement('img');
-                element.classList.add('audible');
-                element.classList.add('small');
-                element.classList.add('right');
+                var element = global.document.createElement("img");
+                element.classList.add("audible");
+                element.classList.add("small");
+                element.classList.add("right");
                 if (!tab.audible) {
-                    element.classList.add('disabled');
+                    element.classList.add("disabled");
                 }
 
                 return element;
             }
 
             function createMutedIconFromTab(tab) {
-                var element = global.document.createElement('img');
-                element.classList.add('muted');
-                element.classList.add('small');
-                element.classList.add('right');
+                var element = global.document.createElement("img");
+                element.classList.add("muted");
+                element.classList.add("small");
+                element.classList.add("right");
                 if (!tab.mutedInfo || !tab.mutedInfo.muted) {
-                    element.classList.add('disabled');
+                    element.classList.add("disabled");
                 }
 
                 return element;
             }
 
             function createIncognitoIconFromTab(tab) {
-                var element = global.document.createElement('img');
-                element.classList.add('incognito');
-                element.classList.add('small');
-                element.classList.add('right');
+                var element = global.document.createElement("img");
+                element.classList.add("incognito");
+                element.classList.add("small");
+                element.classList.add("right");
                 if (!tab.incognito) {
-                    element.classList.add('disabled');
+                    element.classList.add("disabled");
                 }
 
                 return element;
             }
 
             function createPinnedIconFromTab(tab) {
-                var element = global.document.createElement('img');
-                element.classList.add('pinned');
-                element.classList.add('small');
-                element.classList.add('right');
+                var element = global.document.createElement("img");
+                element.classList.add("pinned");
+                element.classList.add("small");
+                element.classList.add("right");
                 if (!tab.pinned) {
-                    element.classList.add('disabled');
+                    element.classList.add("disabled");
                 }
 
                 return element;
             }
 
             function createFavIconFromTab(tab) {
-                //var getTabFavIcon = require('./tab.js');
-                import * as myModule from "./tab.js";
-                var element = global.document.createElement('img');
-                element.classList.add('small');
+                var element = global.document.createElement("img");
+                element.classList.add("small");
                 element.onerror = function () {
                     this.src = getPlatformFavIcon();
                 };
@@ -248,11 +244,11 @@
             }
 
             function getPlatformFavIcon () {
-                return 'resources/chrome-32.png';
+                return "resources/chrome-32.png";
             }
 
             function createHyperLinkFromTab(tab) {
-                var element = global.document.createElement('a');
+                var element = global.document.createElement("a");
                 element.textContent = tab.title;
                 element.href = tab.url;
                 element.onclick = function (event) {
@@ -263,7 +259,7 @@
             }
 
             function createUrlFromTab(tab) {
-                var element = global.document.createElement('em');
+                var element = global.document.createElement("em");
                 element.textContent = tab.url;
 
                 return element;
@@ -271,25 +267,25 @@
         }
 
         function createOmniboxListItem() {
-            var li = global.document.createElement('li');
-            li.classList.add('visible');
-            li.id = 'create_new_tab';
+            var li = global.document.createElement("li");
+            li.classList.add("visible");
+            li.id = "create_new_tab";
             li.innerText = getNewTabLabel();
-            li.setAttribute('search-text', '');
-            li.addEventListener('click', openNewTab);
-            li.addEventListener('mouseover', function () {
+            li.setAttribute("search-text", "");
+            li.addEventListener("click", openNewTab);
+            li.addEventListener("mouseover", function () {
                 selectTab(this);
             });
             return li;
 
             function openNewTab() {
-                var searchText = !!this.attributes['search-text'].value ? this.attributes['search-text'].value : 'chrome://newtab';
+                var searchText = !!this.attributes["search-text"].value ? this.attributes["search-text"].value : "chrome://newtab";
                 if (isLookingLikeAnUri(searchText)) {
-                    if (searchText.indexOf('://') === -1) {
-                        searchText = 'http://' + searchText;
+                    if (searchText.indexOf("://") === -1) {
+                        searchText = "http://" + searchText;
                     }
                 } else {
-                    searchText = 'https://www.google.com/search?q=' + this.attributes['search-text'].value
+                    searchText = "https://www.google.com/search?q=" + this.attributes["search-text"].value
                 }
                 var tabCreationOptions = {};
                 if (!!searchText) {
@@ -305,7 +301,7 @@
             }
 
             function isLookingLikeAnUri(text) {
-                if (typeof text !== 'string') {
+                if (typeof text !== "string") {
                     return false;
                 }
 
@@ -313,14 +309,14 @@
                     return false;
                 }
 
-                let parsedUrl = text.split('://');
+                let parsedUrl = text.split("://");
                 if (parsedUrl.length == 2) {
                     return true;
                 }
 
-                parsedUrl = text.split('.');
+                parsedUrl = text.split(".");
                 if (parsedUrl.length > 1) {
-                    var nonWordRegEx = new RegExp('^\w');
+                    var nonWordRegEx = new RegExp("^\w");
                     return parsedUrl.every(function (currentValue, index, completeArray) {
                         return !nonWordRegEx.test(currentValue);
                     });
@@ -331,7 +327,7 @@
         }
 
         function getNewTabLabel() {
-            return isShiftKeyIsPressed ? '(new window)' : '(new tab)';
+            return isShiftKeyIsPressed ? "(new window)" : "(new tab)";
         }
     });
 })(window, chrome);

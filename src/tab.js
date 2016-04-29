@@ -1,11 +1,11 @@
-(function () {
+(function (global, chrome) {
     "use strict";
 
     var favIconUrls = [
-        { 'name': 'chrome://bookmarks', 'url': 'resources/IDR_BOOKMARKS_FAVICON.png'},
-        { 'name': 'chrome://history', 'url': 'resources/IDR_HISTORY_FAVICON.png'},
-        { 'name': 'chrome://', 'url': 'resources/IDR_EXTENSIONS_FAVICON.png'},
-        { 'name': 'file://', 'url': 'resources/file.png'}
+        { "name": "chrome://bookmarks", "url": "resources/IDR_BOOKMARKS_FAVICON.png"},
+        { "name": "chrome://history", "url": "resources/IDR_HISTORY_FAVICON.png"},
+        { "name": "chrome://", "url": "resources/IDR_EXTENSIONS_FAVICON.png"},
+        { "name": "file://", "url": "resources/file.png"}
     ];
 
     /**
@@ -25,10 +25,21 @@
         if (!!tab.favIconUrl) {
             return tab.favIconUrl;
         }
-        return 'resources/chrome-32.png';
+        return "resources/chrome-32.png";
     };
 
-    module.exports = {
-        getFavIcon: getFavIcon
-    };
-}());
+    if (typeof module != "undefined") {
+        module.exports = {
+            getFavIcon: getFavIcon
+        };
+    } else {
+        // pollute the global scope
+        global[chrome.app.getDetails().short_name] = {
+            "tab": {
+                "getFavIcon": getFavIcon
+            }
+        };
+    }
+}(function () {
+    return this;
+}(), typeof chrome != "undefined" ? chrome : {}));
