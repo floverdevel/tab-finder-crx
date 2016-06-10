@@ -1,20 +1,12 @@
 (function (global, chrome) {
     "use strict";
 
-    var console = global.console;
     var appDetails = chrome.app.getDetails();
-    var getTabFavIcon = global[appDetails.short_name].tab.getFavIcon;
+    var appName = appDetails.short_name;
+    var getTabFavIcon = global[appName].tab.getFavIcon;
+    var outputAppDetailsToConsole = global[appName].about.outputAppDetailsToConsole;
 
-    console.groupCollapsed("About " + appDetails.name);
-    if (!chrome.app.isInstalled) {
-        console.warn("loaded as an unpacked extension");
-        console.warn("developer mode");
-        console.warn("extension is not installed");
-    }
-    console.info("description %o", appDetails.description);
-    console.info("version %o", appDetails.version);
-    console.info("fork me at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
-    console.groupEnd();
+    outputAppDetailsToConsole(chrome.app, global.console);
 
     chrome.tabs.query({}, function (tabs) {
         var currentSelectedDisplayedTab = -1;

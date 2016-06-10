@@ -1,6 +1,8 @@
 (function (global, chrome) {
     "use strict";
 
+    const moduleName = "tab";
+
     var favIconUrls = [
         { "name": "chrome://bookmarks", "url": "resources/IDR_BOOKMARKS_FAVICON.png"},
         { "name": "chrome://history", "url": "resources/IDR_HISTORY_FAVICON.png"},
@@ -28,17 +30,16 @@
         return "resources/chrome-32.png";
     };
 
+    const exp = {
+        "getFavIcon": getFavIcon
+    };
+
     if (typeof module != "undefined") {
-        module.exports = {
-            getFavIcon: getFavIcon
-        };
+        module.exports = exp;
     } else {
         // pollute the global scope
-        global[chrome.app.getDetails().short_name] = {
-            "tab": {
-                "getFavIcon": getFavIcon
-            }
-        };
+        global[chrome.app.getDetails().short_name] = global[chrome.app.getDetails().short_name] || {};
+        global[chrome.app.getDetails().short_name][moduleName] = exp;
     }
 }(function () {
     return this;
