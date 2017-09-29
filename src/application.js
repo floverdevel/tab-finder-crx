@@ -13,6 +13,7 @@
         var isShiftKeyIsPressed = false;
         const KEY_ENTER = 13;
         const KEY_SHIFT = 16;
+        const KEY_ESC = 27;
         const KEY_UP = 38;
         const KEY_DOWN = 40;
 
@@ -33,11 +34,12 @@
         });
 
         searchInput.addEventListener("keydown", function (event) {
+            var displayedTabs;
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_ENTER : {
                     if (currentSelectedDisplayedTab !== -1) {
-                        let displayedTabs = global.document.getElementsByClassName("visible");
+                        displayedTabs = global.document.getElementsByClassName("visible");
                         displayedTabs[currentSelectedDisplayedTab].click();
                     }
                     break;
@@ -54,9 +56,13 @@
                     highlightInCreateTabElement(this.value);
                     break;
                 }
+                case KEY_ESC: {
+                    window.close();
+                    break;
+                }
             }
 
-            let displayedTabs = global.document.getElementsByClassName("visible");
+            displayedTabs = global.document.getElementsByClassName("visible");
             if (currentSelectedDisplayedTab >= displayedTabs.length) {
                 currentSelectedDisplayedTab = 0;
             }
@@ -150,6 +156,7 @@
                         });
                         break;
                     case 2:
+                        // todo refresh the displayed list
                         chrome.tabs.remove(tabId);
                         this.removeEventListener("click");
                         break;
