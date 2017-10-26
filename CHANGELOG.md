@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - close a tab
 
+## 0.4.0
+_2017-10-26_
+- ESC key closes the popup
+- minor bugfix and optimization
+
 ## 0.3.9.2
 _2016-02-17_
 - set the manifest's minimum_chrome_version to 27.0.1453.110 so the extension can be install on older browser via the google chrome webstore
