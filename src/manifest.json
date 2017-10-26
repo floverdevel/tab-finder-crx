@@ -1,7 +1,7 @@
 {
     "name": "Tab Finder - by floverdevel",
     "short_name": "tabfindercrx",
-    "version": "0.3.9.2",
+    "version": "0.4.0",
     "minimum_chrome_version": "27.0.1453.110",
     "manifest_version": 2,
     "description": "Find and navigate to an opened tab",
@@ -14,7 +14,7 @@
     "browser_action": {
         "default_icon": "resources/icon_128.png",
         "default_title": "Find and navigate to an opened tab",
-        "default_popup": "popup.html"
+        "default_popup": "application.html"
     },
     "permissions": [
         "tabs"
