@@ -66,7 +66,7 @@
             }
 
             if (currentSelectedDisplayedTab < 0) {
-                currentSelectedDisplayedTab = displayedVisiblesTabs.length - 1;
+                currentSelectedDisplayedTab = displayedTabs.length - 1;
             }
             selectTab(displayedTabs[currentSelectedDisplayedTab]);
         });
