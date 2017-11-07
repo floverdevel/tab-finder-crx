@@ -21,6 +21,7 @@
             global.document.body.getElementsByTagName("ul")[0].appendChild(createListItemFromTab(tabs[i]));
         }
         global.document.body.getElementsByTagName("ul")[0].appendChild(createOmniboxListItem());
+        global.document.body.appendChild(createAboutApplicationListItem(appDetails));
 
         var searchInput = global.document.getElementById("searchInput");
         searchInput.addEventListener("keyup", function (event) {
@@ -34,7 +35,7 @@
         });
 
         searchInput.addEventListener("keydown", function (event) {
-            var displayedTabs = global.document.getElementsByClassName("visible");
+            var displayedTabs = global.document.getElementsByClassName("tab visible");
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_ENTER : {
@@ -309,6 +310,26 @@
 
                 return false;
             }
+        }
+
+        function createAboutApplicationListItem(appDetails) {
+            var about = global.document.createElement("div");
+            var name = global.document.createElement("p");
+            var description = global.document.createElement("em");
+            var version = global.document.createElement("em");
+
+            about.classList.add("about");
+
+            name.innerText = appDetails.name;
+            description.innerText = appDetails.description;
+            version.innerText = appDetails.version;
+
+            about.appendChild(name);
+            about.appendChild(version);
+            //about.appendChild(description);
+
+
+            return about;
         }
 
         function getNewTabLabel() {
