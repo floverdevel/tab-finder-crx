@@ -76,7 +76,11 @@ input {
 }
 
 .about {
-    background-color: InfoBackground;
-    color: InfoText;
+    background-color: #ffffff;
+    color: #157EFB;
     padding: 5px;
+}
+
+.about p {
+    font-weight: bold;
 }
