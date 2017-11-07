@@ -315,18 +315,20 @@
         function createAboutApplicationListItem(appDetails) {
             var about = global.document.createElement("div");
             var name = global.document.createElement("p");
-            var description = global.document.createElement("em");
             var version = global.document.createElement("em");
+            var logo = global.document.createElement("img");
+
+            logo.classList.add("right");
+            logo.classList.add("logo-32");
 
             about.classList.add("about");
 
             name.innerText = appDetails.name;
-            description.innerText = appDetails.description;
             version.innerText = appDetails.version;
 
+            about.appendChild(logo);
             about.appendChild(name);
             about.appendChild(version);
-            //about.appendChild(description);
 
 
             return about;

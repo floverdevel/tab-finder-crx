@@ -33,6 +33,9 @@ img.incognito {
 img.pinned {
     content: url("resources/pinned.png");
 }
+img.logo-32 {
+    content: url("resources/icon_32.png");
+}
 
 a {
     text-overflow: ellipsis;
@@ -76,7 +79,6 @@ input {
 }
 
 .about {
-    background-color: #ffffff;
     color: #157EFB;
     padding: 5px;
 }
