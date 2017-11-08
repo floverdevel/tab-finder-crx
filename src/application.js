@@ -35,7 +35,7 @@
         });
 
         searchInput.addEventListener("keydown", function (event) {
-            var displayedTabs = global.document.getElementsByClassName("tab visible");
+            var displayedTabs = global.document.getElementsByClassName("visible");
             isShiftKeyIsPressed = !!event.shiftKey;
             switch (event.which) {
                 case KEY_ENTER : {
