@@ -153,6 +153,19 @@
                     });
                 });
             });
+            li.addEventListener("mousedown", function (event) {
+                var tabId = parseInt(this.attributes["data-tab-id"].value);
+
+                switch (event.button) {
+                    case 1 : {
+                        chrome.tabs.remove(tabId, function () {
+                            event.target.remove();
+                        });
+
+                        break;
+                    }
+                }
+            });
             li.addEventListener("mouseover", function () {
                 selectTab(this);
             });
