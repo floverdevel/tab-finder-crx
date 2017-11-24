@@ -1,5 +1,5 @@
 # crx-tab-finder
-## 0.4.0
+## 0.5.0
 ### Google Chrome extension to find an opened tab
 
 Goals :
@@ -8,6 +8,7 @@ Goals :
 2. filter the list by searching by tabs's title and/or tab's URL
 3. navigate to the selected tab, and bring its containing window to the foreground
 4. possibility to create a new tab (inside actual window or in a new window) with the pre-filled omnibox
+5. close a tab
 
 For now I only have the source code on bitbucket in a private repository, here:
 https://bitbucket.org/floverdevel/crx-tab-finder
@@ -18,7 +19,4 @@ Eventually I will officially distribute the plugin on Google Play Store and/or G
 To install from source code, follow the instructions from Google Chrome Extensions Developer website:
 https://developer.chrome.com/extensions/getstarted#unpacked
 
-This project started as proof of concept (POC) and it proved to be functional rather quickly
-Also, it's very alpha version, so, for now :
-- No clean code
-- No automated testing
+This project started as proof of concept (POC) and it proved to be functional rather quickly.

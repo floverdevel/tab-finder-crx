@@ -3,7 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## coming soon
-- close a tab
+- display pinned tabs on top of list
+
+## 0.5.0
+_2017-11-23_
+- close a tab _(pro tip : you can do it with middle-click too)_
+- about version is displayed at the bottom of popup
 
 ## 0.4.0
 _2017-10-26_
