@@ -13,11 +13,11 @@ img {
 img.disabled {
     opacity: 0.1;
 }
-img.small {
+.small {
     width: 16px;
     height: 16px;
 }
-img.big {
+.big {
     width: 32px;
     height: 32px;
 }
@@ -35,6 +35,17 @@ img.pinned {
 }
 img.logo-32 {
     content: url("resources/icon_32.png");
+}
+
+img.close {
+    content: url("resources/close-tranparent.png");
+    cursor: default;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+}
+img.close:hover {
+    content: url("resources/close-tranparent-hover.png");
 }
 
 a {
@@ -56,6 +67,10 @@ li {
     margin: 0;
     list-style-type: none;
     padding: 8px;
+}
+li.hidden {
+    opacity: 0.2;
+    transition: opacity 1s linear;
 }
 li.selected {
     background-color: Menu;
