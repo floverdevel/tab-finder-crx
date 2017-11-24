@@ -153,10 +153,20 @@
                     });
                 });
             });
+            li.addEventListener("mousedown", function (event) {
+                switch (event.button) {
+                    case 1 : {
+                        closeTab(this);
+                        break;
+                    }
+                }
+            });
             li.addEventListener("mouseover", function () {
+                // todo adjust currentSelectedDisplayedTab value
                 selectTab(this);
             });
 
+            li.appendChild(createCloseButtonFromTab(tab));
             li.appendChild(createIncognitoIconFromTab(tab));
             li.appendChild(createAudibleIconFromTab(tab));
             li.appendChild(createMutedIconFromTab(tab));
@@ -168,6 +178,32 @@
             li.appendChild(createUrlFromTab(tab));
 
             return li;
+
+            function closeTab(tab) {
+                var tabId = parseInt(tab.attributes["data-tab-id"].value);
+                chrome.tabs.remove(tabId, function () {
+                    tab.classList.add("hidden");
+                    tab.classList.remove("tab");
+                    tab.remove();
+                });
+
+            }
+
+            function createCloseButtonFromTab(tab) {
+                var element = global.document.createElement("img");
+                element.title = "Close this tab";
+                element.classList.add("close");
+                element.classList.add("right");
+                element.classList.add("enabled");
+
+                element.addEventListener("click", function (event) {
+                    event.cancelBubble = true;
+                    event.preventDefault();
+                    closeTab(event.target.parentElement);
+                });
+
+                return element;
+            }
 
             function createAudibleIconFromTab(tab) {
                 var element = global.document.createElement("img");
@@ -230,6 +266,7 @@
             }
 
             function getPlatformFavIcon () {
+                // chrome://theme/current-channel-logo@1x
                 return "resources/chrome-32.png";
             }
 
