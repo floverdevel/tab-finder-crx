@@ -93,6 +93,10 @@ input {
     margin-top: 0;
 }
 
+input::placeholder {
+    font-style: italic;
+}
+
 .about {
     color: #157EFB;
     padding: 5px;
