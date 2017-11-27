@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - display pinned tabs on top of list
 
+## 0.5.1
+_2017-11-27_
+- fix text overlapping when title or url are too long
+- fix search input placeholder text
+
 ## 0.5.0
 _2017-11-23_
 - close a tab _(pro tip : you can do it with middle-click too)_
