@@ -49,9 +49,9 @@ img.close:hover {
 }
 
 a {
-    text-overflow: ellipsis;
-    position: absolute;
+    vertical-align: top;
 }
+
 ul {
     margin: 0;
     padding: 0;
