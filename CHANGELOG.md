@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - display pinned tabs on top of list
 
+## 0.5.2
+_2017-11-28_
+- fix highlighted text was not aligned vertically
+
 ## 0.5.1
 _2017-11-27_
 - fix text overlapping when title or url are too long
