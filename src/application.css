@@ -82,6 +82,7 @@ li.visible {
 ul span {
     background-color: Highlight;
     color: HighlightText;
+    vertical-align: top;
 }
 ul em {
     color: gray;
