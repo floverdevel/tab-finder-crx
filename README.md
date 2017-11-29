@@ -1,5 +1,5 @@
 # crx-tab-finder
-## 0.5.2
+## 0.5.3
 ### Google Chrome extension to find an opened tab
 
 Goals :
