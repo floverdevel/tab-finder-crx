@@ -1,6 +1,6 @@
 {
   "name": "tabfindercrx",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Find and navigate to an opened tab",
   "main": "application.html",
   "directories": {

@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - display pinned tabs on top of list
 
+## 0.5.3
+_2017-11-28_
+- fix "new tab" text was not readable
+
 ## 0.5.2
 _2017-11-28_
 - fix highlighted text was not aligned vertically
