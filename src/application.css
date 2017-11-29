@@ -74,7 +74,6 @@ li.hidden {
 }
 li.selected {
     background-color: Menu;
-    color: MenuText;
 }
 li.visible {
     display: block;
