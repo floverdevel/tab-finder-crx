@@ -3,7 +3,7 @@
 
     var appDetails = chrome.app.getDetails();
     var appName = appDetails.short_name;
-    var getTabFavIcon = global[appName].tab.getFavIcon;
+    var getTabFavIcon = global[appName].favicon.getUrl;
     var outputAppDetailsToConsole = global[appName].about.outputAppDetailsToConsole;
 
     outputAppDetailsToConsole(chrome.app, global.console);
@@ -16,6 +16,8 @@
         var KEY_ESC = 27;
         var KEY_UP = 38;
         var KEY_DOWN = 40;
+
+        var getWindowColor = constructTheGetWindowColorFunctionBasedOnTabs(tabs);
 
         for (var i = 0; i < tabs.length; i += 1) {
             global.document.body.getElementsByTagName("ul")[0].appendChild(createListItemFromTab(tabs[i]));
@@ -176,6 +178,9 @@
             li.appendChild(createHyperLinkFromTab(tab));
             li.appendChild(global.document.createElement("br"));
             li.appendChild(createUrlFromTab(tab));
+
+            li.style.borderRightColor = getWindowColor(tab);
+            li.style.borderLeftColor = getWindowColor(tab);
 
             return li;
 
@@ -375,4 +380,40 @@
             return isShiftKeyIsPressed ? "(new window)" : "(new tab)";
         }
     });
+
+
+    function constructTheGetWindowColorFunctionBasedOnTabs(tabs) {
+        var windowColors;
+        var windowIds = [];
+        var availableColors = [
+            "#c0c0c0",
+            "#808080",
+            "#ff0000",
+            "#dc00ff",
+            "#8000ff",
+            "#0000ff",
+            "#0080ff",
+            "#00ffff",
+            //"#00ff80",
+            "#00ff00",
+            "#80ff00",
+            "#ffff00",
+            "#ff8000",
+            //"#80ff00",
+        ];
+        for (var i = 0; i < tabs.length; i += 1) {
+            if (!windowIds.includes(tabs[i].windowId)) {
+                windowIds.push(tabs[i].windowId);
+            }
+        }
+
+        windowColors = {};
+        for (var i = 0; i < windowIds.length; i += 1) {
+            windowColors[windowIds[i]] = availableColors.length ? availableColors.pop() : "transparent";
+        }
+
+        return function (tab) {
+            return windowColors[tab.windowId];
+        };
+    }
 })(window, chrome);

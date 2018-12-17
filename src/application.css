@@ -2,6 +2,7 @@
     float: right;
 }
 body {
+    border: 0;
     padding: 0;
     margin: 0;
     min-width: 600px;
@@ -58,10 +59,13 @@ ul {
 }
 li {
     background-color: transparent;
-    border-width: 1px;
-    border-style: solid;
     border-color: transparent;
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 1px;
     border-bottom-color: silver;
+    border-left-width: 4px;
+    border-right-width: 4px;
     cursor: pointer;
     display: none;
     margin: 0;
@@ -87,6 +91,11 @@ ul em {
     color: gray;
     width: 100%;
 }
+
+.windowId {
+    font-style: italic;
+}
+
 input {
     width: 100%;
     margin-bottom: 0;
