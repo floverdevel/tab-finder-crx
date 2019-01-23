@@ -65,11 +65,11 @@
                         return appDetails;
                     }
                 };
-                console.warn = jasmine.createSpy("console.warn");
+                //console.warn = jasmine.createSpy("console.warn");
 
                 about.outputAppDetailsToConsole(chromeApplication, console);
 
-                expect(console.warn).toHaveBeenCalledWith("loaded as an unpacked extension");
+                expect(console.info).toHaveBeenCalledWith("loaded as an unpacked extension");
                 expect(console.info).toHaveBeenCalledWith("send your pull request at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
             });
         });

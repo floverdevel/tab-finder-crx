@@ -14,7 +14,7 @@
         if (chromeApplication.isInstalled) {
             console.info("fork me at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
         } else {
-            console.warn("loaded as an unpacked extension");
+            console.info("loaded as an unpacked extension");
             console.info("send your pull request at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
         }
         console.groupEnd();
