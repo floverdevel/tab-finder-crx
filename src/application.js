@@ -5,7 +5,6 @@
     var appName = appDetails.short_name;
     var getTabFavIcon = global[appName].tab.getFavIcon;
     var outputAppDetailsToConsole = global[appName].about.outputAppDetailsToConsole;
-
     outputAppDetailsToConsole(chrome.app, global.console);
 
     chrome.tabs.query({}, function (tabs) {
