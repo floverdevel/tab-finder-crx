@@ -1,25 +1,22 @@
 {
-  "name": "tabfindercrx",
-  "version": "0.6.0",
-  "description": "Find and navigate to an opened tab",
-  "main": "application.html",
-  "directories": {
-    "test": "spec"
-  },
-  "dependencies": {
-  },
-  "devDependencies": {
-    "jasmine": "2.*"
-  },
-  "scripts": {
-    "changelog": "git changelog > CHANGELOG.npm.md",
-    "test": "./node_modules/.bin/jasmine"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://bitbucket.org/floverdevel/crx-tab-finder.git"
-  },
-  "author": "floverdevel",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/floverdevel/crx-tab-finder#readme"
+    "name": "tabfindercrx",
+    "version": "1.0.0",
+    "description": "Find and navigate to an opened tab",
+    "directories": {
+        "test": "spec"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "jasmine": "^3"
+    },
+    "scripts": {
+        "test": "./node_modules/.bin/jasmine"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:floverdevel/tab-finder-crx.git"
+    },
+    "author": "floverdevel",
+    "license": "MIT",
+    "homepage": "https://github.com/floverdevel/tab-finder-crx"
 }

@@ -50,7 +50,7 @@
 
                 about.outputAppDetailsToConsole(chromeApplication, console);
 
-                expect(console.info).toHaveBeenCalledWith("fork me at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
+                expect(console.info).toHaveBeenCalledWith("fork me at %o", "https://github.com/floverdevel/tab-finder-crx");
             });
 
             it("output «pull request» message when app is not installed", function () {
@@ -70,7 +70,7 @@
                 about.outputAppDetailsToConsole(chromeApplication, console);
 
                 expect(console.info).toHaveBeenCalledWith("loaded as an unpacked extension");
-                expect(console.info).toHaveBeenCalledWith("send your pull request at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
+                expect(console.info).toHaveBeenCalledWith("send your pull request at %o", "https://github.com/floverdevel/tab-finder-crx");
             });
         });
     });

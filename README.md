@@ -1,30 +1,48 @@
-# crx-tab-finder
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-## 0.5.3
-### Google Chrome extension to find an opened tab
+Tab Finder - by floverdevel
+===========================
+Google Chrome extension to find an opened tab
 
-Goals :
+[![Unit tests](https://github.com/floverdevel/tab-finder-crx/workflows/Unit%20tests/badge.svg)](https://github.com/floverdevel/tab-finder-crx/actions)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg)](#contributors-)
 
-1. display the list of currently opened tabs, even spread across multiple windows
-2. filter the list by searching by tabs's title and/or tab's URL
-3. navigate to the selected tab, and bring its containing window to the foreground
-4. possibility to create a new tab (inside actual window or in a new window) with the pre-filled omnibox
-5. close a tab
 
-For now I only have the source code on bitbucket in a private repository, here:
-https://bitbucket.org/floverdevel/crx-tab-finder
+Goals
+-----
+- display the list of currently opened tabs, even those in others windows
+- filter the list by searching by tabs's title and/or tab's URL
+- navigate to the selected tab, and bring its containing window to the foreground
+- possibility to create a new tab (inside actual window or in a new window) with the pre-filled omnibox
+- close a tab
 
-If you're interested to test it and SEND ME YOUR FEEDBACK all it takes his a bitbucket username so I can give you read access.
-Eventually I will officially distribute the plugin on Google Play Store and/or Google Chrome Webstore but until then you have the honor of being a _beta-testers_.
 
-To install from source code, follow the instructions from Google Chrome Extensions Developer website:
-https://developer.chrome.com/extensions/getstarted#unpacked
+Install
+-------
+The directory holding the manifest file can be added as an extension in developer mode in its current state.
 
-This project started as proof of concept (POC) and it proved to be functional rather quickly.
-## Contributors ✨
+- Open the Extension Management page by navigating to [chrome://extensions](chrome://extensions).
+  - The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
+- Enable Developer Mode by clicking the toggle switch next to Developer mode.
+- Click the LOAD UNPACKED button and select the extension directory.
 
+Ta-da! The extension has been successfully installed.
+
+See [instructions from Google Chrome's Getting Started Tutorial](https://developer.chrome.com/extensions/getstarted) for more information.
+
+
+Requirements
+------------
+node.js v12.18.3 or above
+
+it will probably work just fine with node.js v14.* LTS, i just didn't test it on that platform
+
+
+License
+-------
+Tab Finder - by floverdevel is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+
+Contributors ✨
+---------------
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

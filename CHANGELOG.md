@@ -1,9 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
+
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## coming soon
 - display pinned tabs on top of list
+
+## 1.0.0
+_2020-11-03_
+- Initial public release on Github.com
 
 ## 0.6.0
 _2020-06-11_

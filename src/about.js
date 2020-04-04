@@ -12,10 +12,10 @@
 
         console.groupCollapsed("%s %s", appDetails.name, appDetails.version);
         if (chromeApplication.isInstalled) {
-            console.info("fork me at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
+            console.info("fork me at %o", "https://github.com/floverdevel/tab-finder-crx");
         } else {
             console.info("loaded as an unpacked extension");
-            console.info("send your pull request at %o", "https://bitbucket.org/floverdevel/crx-tab-finder");
+            console.info("send your pull request at %o", "https://github.com/floverdevel/tab-finder-crx");
         }
         console.groupEnd();
     };
