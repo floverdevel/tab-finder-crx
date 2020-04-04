@@ -1,22 +1,36 @@
-# crx-tab-finder
-## 0.5.3
-### Google Chrome extension to find an opened tab
+Tab Finder - by floverdevel
+==============
+Google Chrome extension to find an opened tab
 
-Goals :
+![Unit tests](https://github.com/floverdevel/tab-finder-crx/workflows/Unit%20tests/badge.svg)
 
-1. display the list of currently opened tabs, even spread across multiple windows
-2. filter the list by searching by tabs's title and/or tab's URL
-3. navigate to the selected tab, and bring its containing window to the foreground
-4. possibility to create a new tab (inside actual window or in a new window) with the pre-filled omnibox
-5. close a tab
 
-For now I only have the source code on bitbucket in a private repository, here:
-https://bitbucket.org/floverdevel/crx-tab-finder
+Goals
+-----
+- display the list of currently opened tabs, even spread across multiple windows
+- filter the list by searching by tabs's title and/or tab's URL
+- navigate to the selected tab, and bring its containing window to the foreground
+- possibility to create a new tab (inside actual window or in a new window) with the pre-filled omnibox
+- close a tab
 
-If you're interested to test it and SEND ME YOUR FEEDBACK all it takes his a bitbucket username so I can give you read access.
-Eventually I will officially distribute the plugin on Google Play Store and/or Google Chrome Webstore but until then you have the honor of being a _beta-testers_.
+Install
+-------
+The directory holding the manifest file can be added as an extension in developer mode in its current state.
 
-To install from source code, follow the instructions from Google Chrome Extensions Developer website:
-https://developer.chrome.com/extensions/getstarted#unpacked
+- Open the Extension Management page by navigating to [chrome://extensions](chrome://extensions).
+  - The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
+- Enable Developer Mode by clicking the toggle switch next to Developer mode.
+- Click the LOAD UNPACKED button and select the extension directory.
 
-This project started as proof of concept (POC) and it proved to be functional rather quickly.
+Ta-da! The extension has been successfully installed.
+
+See [instructions from Google Chrome's Getting Started Tutorial](https://developer.chrome.com/extensions/getstarted) for more information.
+
+Requirements
+------------
+node.js v13.3.0 or above
+it will probably work just fine with node.js v12.* LTS, i just didn't test it on that platform
+
+License
+-------
+tab-finder-crx is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
