@@ -1,9 +1,19 @@
 {
     "name": "Tab Finder - by floverdevel",
     "short_name": "tabfindercrx",
-    "version": "0.5.3",
+    "version": "0.6.0",
     "minimum_chrome_version": "27.0.1453.110",
     "manifest_version": 2,
+    "commands": {
+      "_execute_browser_action": {
+         "suggested_key": {
+            "windows": "Ctrl+Space",
+            "mac": "MacCtrl+Space",
+            "chromeos": "Ctrl+Space",
+            "linux": "Ctrl+Space"
+         }
+      }
+    },
     "description": "Find and navigate to an opened tab",
     "icons": {
         "16": "resources/icon_16.png",
