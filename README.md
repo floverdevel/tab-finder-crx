@@ -1,6 +1,6 @@
 # crx-tab-finder
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ## 0.5.3
 ### Google Chrome extension to find an opened tab
@@ -33,6 +33,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://nuglif.com"><img src="https://avatars2.githubusercontent.com/u/1007857?v=4" width="100px;" alt=""/><br /><sub><b>Ellis</b></sub></a><br /><a href="https://github.com/floverdevel/tab-finder-crx/commits?author=floverdevel" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/cdemers"><img src="https://avatars0.githubusercontent.com/u/595362?v=4" width="100px;" alt=""/><br /><sub><b>Charle Demers</b></sub></a><br /><a href="https://github.com/floverdevel/tab-finder-crx/commits?author=cdemers" title="Code">💻</a></td>
   </tr>
 </table>
 
