@@ -4,6 +4,7 @@ Google Chrome extension to find an opened tab
 
 [![Unit tests](https://github.com/floverdevel/tab-finder-crx/workflows/Unit%20tests/badge.svg)](https://github.com/floverdevel/tab-finder-crx/actions)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg)](#contributors-)
+[![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](./LICENSE)
 
 
 Goals
