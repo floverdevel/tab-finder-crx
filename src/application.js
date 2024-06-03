@@ -77,8 +77,8 @@
                 var displayedTab = displayedTabs[i];
                 if (this.value == "") {
                     displayedTab.classList.add("visible");
-                    displayedTab.getElementsByTagName("a")[0].innerHTML = displayedTab.getElementsByTagName("a")[0].textContent;
-                    displayedTab.getElementsByTagName("em")[0].innerHTML = displayedTab.getElementsByTagName("em")[0].textContent;
+                    displayedTab.getElementsByClassName("tab__title")[0].innerHTML = displayedTab.getElementsByClassName("tab__title")[0].textContent;
+                    displayedTab.getElementsByClassName("tab__url")[0].innerHTML = displayedTab.getElementsByClassName("tab__url")[0].textContent;
                 } else {
                     var textPosition = displayedTab.textContent.toLowerCase().indexOf(this.value.toLowerCase());
                     if (textPosition != -1) {
@@ -86,8 +86,8 @@
                     } else {
                         displayedTab.classList.remove("visible");
                     }
-                    highlightTextInElement(this.value, displayedTab.getElementsByTagName("a")[0]);
-                    highlightTextInElement(this.value, displayedTab.getElementsByTagName("em")[0]);
+                    highlightTextInElement(this.value, displayedTab.getElementsByClassName("tab__title")[0]);
+                    highlightTextInElement(this.value, displayedTab.getElementsByClassName("tab__url")[0]);
                 }
             }
 
@@ -206,11 +206,12 @@
 
             function createAudibleIconFromTab(tab) {
                 var element = global.document.createElement("img");
-                element.classList.add("audible");
+                element.classList.add("state");
+                element.classList.add("state--audible");
                 element.classList.add("small");
                 element.classList.add("right");
-                if (!tab.audible) {
-                    element.classList.add("disabled");
+                if (tab.audible) {
+                    element.classList.add("state--enabled");
                 }
 
                 return element;
@@ -218,11 +219,12 @@
 
             function createMutedIconFromTab(tab) {
                 var element = global.document.createElement("img");
-                element.classList.add("muted");
+                element.classList.add("state");
+                element.classList.add("state--muted");
                 element.classList.add("small");
                 element.classList.add("right");
-                if (!tab.mutedInfo || !tab.mutedInfo.muted) {
-                    element.classList.add("disabled");
+                if (tab.mutedInfo && tab.mutedInfo.muted) {
+                    element.classList.add("state--enabled");
                 }
 
                 return element;
@@ -230,11 +232,12 @@
 
             function createIncognitoIconFromTab(tab) {
                 var element = global.document.createElement("img");
-                element.classList.add("incognito");
+                element.classList.add("state");
+                element.classList.add("state--incognito");
                 element.classList.add("small");
                 element.classList.add("right");
-                if (!tab.incognito) {
-                    element.classList.add("disabled");
+                if (tab.incognito) {
+                    element.classList.add("state--enabled");
                 }
 
                 return element;
@@ -242,11 +245,12 @@
 
             function createPinnedIconFromTab(tab) {
                 var element = global.document.createElement("img");
-                element.classList.add("pinned");
+                element.classList.add("state");
+                element.classList.add("state--pinned");
                 element.classList.add("small");
                 element.classList.add("right");
-                if (!tab.pinned) {
-                    element.classList.add("disabled");
+                if (tab.pinned) {
+                    element.classList.add("state--enabled");
                 }
 
                 return element;
@@ -254,6 +258,7 @@
 
             function createFavIconFromTab(tab) {
                 var element = global.document.createElement("img");
+                element.classList.add("favicon");
                 element.classList.add("small");
                 element.onerror = function () {
                     this.src = getPlatformFavIcon();
@@ -271,6 +276,7 @@
 
             function createHyperLinkFromTab(tab) {
                 var element = global.document.createElement("a");
+                element.classList.add("tab__title")
                 element.textContent = tab.title;
                 element.href = tab.url;
                 element.onclick = function (event) {
@@ -279,9 +285,9 @@
 
                 return element;
             }
-
             function createUrlFromTab(tab) {
-                var element = global.document.createElement("em");
+                var element = global.document.createElement("p");
+                element.classList.add("tab__url")
                 element.textContent = tab.url;
 
                 return element;
