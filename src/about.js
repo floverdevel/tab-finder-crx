@@ -8,7 +8,7 @@
      * @param {object} console
      */
     var outputAppDetailsToConsole = function (chromeApplication, console) {
-        const appDetails = chromeApplication.getDetails();
+        const appDetails = chromeApplication.getManifest();
 
         console.groupCollapsed("%s %s", appDetails.name, appDetails.version);
         if (chromeApplication.isInstalled) {
@@ -28,8 +28,8 @@
         module.exports = exp;
     } else {
         // pollute the global scope
-        global[chrome.app.getDetails().short_name] = global[chrome.app.getDetails().short_name] || {};
-        global[chrome.app.getDetails().short_name][moduleName] = exp;
+        global[chrome.runtime.getManifest().short_name] = global[chrome.runtime.getManifest().short_name] || {};
+        global[chrome.runtime.getManifest().short_name][moduleName] = exp;
     }
 }(function () {
     return this;

@@ -23,7 +23,7 @@
                 };
                 const chromeApplication = {
                     "isInstalled": true,
-                    "getDetails": function () {
+                    "getManifest": function () {
                         return appDetails;
                     }
                 };
@@ -43,7 +43,7 @@
                 };
                 const chromeApplication = {
                     "isInstalled": true,
-                    "getDetails": function () {
+                    "getManifest": function () {
                         return appDetails;
                     }
                 };
@@ -61,7 +61,7 @@
                 };
                 const chromeApplication = {
                     "isInstalled": false,
-                    "getDetails": function () {
+                    "getManifest": function () {
                         return appDetails;
                     }
                 };

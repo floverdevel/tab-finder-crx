@@ -38,8 +38,8 @@
         module.exports = exp;
     } else {
         // pollute the global scope
-        global[chrome.app.getDetails().short_name] = global[chrome.app.getDetails().short_name] || {};
-        global[chrome.app.getDetails().short_name][moduleName] = exp;
+        global[chrome.runtime.getManifest().short_name] = global[chrome.runtime.getManifest().short_name] || {};
+        global[chrome.runtime.getManifest().short_name][moduleName] = exp;
     }
 }(function () {
     return this;

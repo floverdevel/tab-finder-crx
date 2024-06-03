@@ -3,9 +3,9 @@
     "short_name": "tabfindercrx",
     "version": "1.0.0",
     "minimum_chrome_version": "27.0.1453.110",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "commands": {
-      "_execute_browser_action": {
+      "_execute_action": {
          "suggested_key": {
             "windows": "Ctrl+Space",
             "mac": "MacCtrl+Space",
@@ -21,7 +21,7 @@
         "64": "resources/icon_64.png",
         "128": "resources/icon_128.png"
     },
-    "browser_action": {
+    "action": {
         "default_icon": "resources/icon_128.png",
         "default_title": "Find and navigate to an opened tab",
         "default_popup": "application.html"

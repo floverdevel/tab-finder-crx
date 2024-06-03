@@ -1,11 +1,11 @@
 (function (global, chrome) {
     "use strict";
 
-    var appDetails = chrome.app.getDetails();
+    var appDetails = chrome.runtime.getManifest();
     var appName = appDetails.short_name;
     var getTabFavIcon = global[appName].tab.getFavIcon;
     var outputAppDetailsToConsole = global[appName].about.outputAppDetailsToConsole;
-    outputAppDetailsToConsole(chrome.app, global.console);
+    outputAppDetailsToConsole(chrome.runtime, global.console);
 
     chrome.tabs.query({}, function (tabs) {
         var currentSelectedDisplayedTab = -1;
