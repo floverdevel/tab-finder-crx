@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## coming soon
 - display pinned tabs on top of list
 
+## 1.1.0
+_2024-05-31_
+- white background for icon
+- manifest v3 compliant
+- Respect the dark mode of the operating system
+
 ## 1.0.0
 _2020-11-03_
 - Initial public release on Github.com
